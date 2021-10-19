@@ -1,22 +1,33 @@
 
+/*
+async function fetchJSON() {
+  const response = await fetch('https://api.propublica.org/congress/v1/113/senate/members.json', {
+    headers:{'X-API-Key':'zVc5hB9SJPb7D3LskxNmV0TEicAghQQ4KOETtdFB'}
+  });
+  const membersArr = await response.json.results[0].members();
+  return membersArr;
+}
+fetchJSON().then(membersArr => {
+  membersArr;
+});
+*/
+
 let membersArr = []
 
-async function fetchJson(){
-  const response = await fetch('https://api.propublica.org/congress/v1/113/senate/members.json',{
-    headers: {'X-API-Key':'zVc5hB9SJPb7D3LskxNmV0TEicAghQQ4KOETtdFB'}
-  })
-  response.ok;
-  response.status;
-  let membersArr = await response.json();
-  return membersArr = await membersArr.results[0].members;
-}
-fetchJson().then(membersArr => {
-  membersArr;
-  console.log(membersArr)
+fetch('https://api.propublica.org/congress/v1/113/senate/members.json',{
+  headers:{'X-API-Key':'zVc5hB9SJPb7D3LskxNmV0TEicAghQQ4KOETtdFB'}
 })
-console.log(membersArr)
+.then((response)=>{
+  console.log("funciona", response);
+  return response.json();
+}).then((json) =>{
+  console.log(json);
+  membersArr = json.results[0].members
 
 
+
+
+  
 
 //Declare variables
 let democratsArr = [];
@@ -108,4 +119,9 @@ function buildTableTopLoyal(){
         document.getElementById("senateTopLoyal").append(row);
     }
 };
-buildTableTopLoyal(topTenLoyals);
+buildTableTopLoyal(topTenLoyals)
+
+
+}).catch((error)=>{
+  console.log("no funciona", error);
+})
