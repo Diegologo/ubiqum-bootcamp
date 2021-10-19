@@ -1,0 +1,15 @@
+<script>
+  //coger el índice de dos valores los cuales juntos sumen el target
+    var arr = [2,7,11,15];
+    var target = 9
+    var indexes = []
+for (var i=0; i < arr.length; i++) {
+    
+  for (var j=i+1; j < arr.length; j++) {
+      if(arr[i]+arr[j] == target){
+        indexes.push(i,j)
+      }
+    }
+}
+console.log(indexes)
+</script>
