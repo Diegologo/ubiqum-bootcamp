@@ -25,6 +25,17 @@ fetch('https://api.propublica.org/congress/v1/113/senate/members.json',{
   membersArr = json.results[0].members
 
 
+  let app = new Vue({  
+    el: '#app',  
+    data: { 
+      democratLoyalty = []
+    }
+  }); 
+
+
+}).catch((error)=>{
+  console.log("no funciona", error);
+})
 
 
   
@@ -36,6 +47,8 @@ fetch('https://api.propublica.org/congress/v1/113/senate/members.json',{
   let democratLoyalty = 0;
   let republicanLoyalty = 0;
   let independentLoyalty = 0;
+  let bottomTenLoyals = membersArr;
+  let topTenLoyals = membersArr;
 
   //Iterate the array and get data for the number of party members and loyalty to the party
   for (i=0; i<membersArr.length; i++){
@@ -69,9 +82,6 @@ fetch('https://api.propublica.org/congress/v1/113/senate/members.json',{
 
 
   //sort members by their loyalty
-  let bottomTenLoyals = membersArr;
-  let topTenLoyals = membersArr;
-
   function compareLoyalty (a, b) {
     if (a.votes_with_party_pct < b.votes_with_party_pct){
       return -1;
@@ -89,7 +99,7 @@ fetch('https://api.propublica.org/congress/v1/113/senate/members.json',{
   topTenLoyals.sort(compareLoyalty);
   topTenLoyals = topTenLoyals.slice(95,105).reverse();
 
-
+/*
   //build tables
   //build table of vote less with party
   function buildTableBottomLoyal(){
@@ -120,8 +130,5 @@ fetch('https://api.propublica.org/congress/v1/113/senate/members.json',{
       }
   };
   buildTableTopLoyal(topTenLoyals)
+*/
 
-
-}).catch((error)=>{
-  console.log("no funciona", error);
-})
