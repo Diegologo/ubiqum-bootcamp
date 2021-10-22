@@ -12,7 +12,8 @@
             <nav>
              <div>
                <div>
-                   <a class="email" href="info@tgif.net">info@tgif.net</a>
+                    <img class="logo" src="assets/nysl_logo.png" alt="logo">
+                    <a class="email" href="info@tgif.net">info@tgif.net</a>
                </div>
                <ul class="nav nav-tabs" role="tablist">
                    <li>
@@ -22,10 +23,10 @@
                        <a id="actualPosition" class="dropdown-toggle" data-toggle="dropdown" href="">Congress 113<span class="caret"></span></a>
                        <ul class="dropdown-menu" role="menu">
                            <li>
-                               <a href="house-data.html">House</a>
+                               <a href="house-data-vue.html">House</a>
                            </li>
                            <li>
-                               <a href="senate-data.html">Senate</a>
+                               <a href="senate-data-vue.html">Senate</a>
                            </li>
                        </ul>
                    </li>
@@ -118,7 +119,7 @@
                         <th>Seniority</th>
                         <th>% votes with party</th>
                     </tr>
-                    <tr v-for="(value, key) in filterFun">
+                    <tr v-for="value in filterFun">
                         <td>{{value.first_name}} {{value.middle_name}} {{value.last_name}}</td>
                         <td>{{value.party}}</td>
                         <td>{{value.state}}</td>

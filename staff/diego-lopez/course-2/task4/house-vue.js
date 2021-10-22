@@ -1,8 +1,3 @@
-/*això es un intent de filtre, no xuta
-Vue.filter('filterParty', function(array,partyToFilter){
-  return array.filter(filter => filter.party === partyToFilter)
-})*/
-
 var app = new Vue(
   {
   el: '#app',
@@ -20,7 +15,7 @@ var app = new Vue(
   //fetch
   methods :{
     fetchData: function(){
-    fetch('https://api.propublica.org/congress/v1/113/senate/members.json',{
+    fetch('https://api.propublica.org/congress/v1/113/house/members.json',{
     headers:{
       'X-API-Key':'zVc5hB9SJPb7D3LskxNmV0TEicAghQQ4KOETtdFB'
     }
