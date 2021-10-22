@@ -6,10 +6,13 @@ Vue.filter('filterParty', function(array,partyToFilter){
 var app = new Vue(
   {  
   el: '#app',  
-  data: {    
-    membersArr: [],
+  data: {
     checkedParty: [],
+    checkedState: "ALL",
     filteredByPartyArr: [],
+    filteredByStateArr: [],
+    filteredTwice: [],
+    membersArr: [],
     selectedParty: [],
   },
 
@@ -35,40 +38,21 @@ var app = new Vue(
   },
   },
   computed :{
-    /*
-    filterFun: function(){
-      membersArr = []
-      this.filteredByPartyArr = this.membersArr.filter(filter => filter.party === this.checkedParty);
-      return this.filteredByPartyArr
-    },
-    */
-   /*
-    filterFun: function(){
-      this.filteredByPartyArr = this.membersArr.filter(value => this.checkedParty.includes(value));
-      return this.filteredByPartyArr
-    },
-    */
       filterFun: function(){
       this.filteredByPartyArr= [...this.membersArr].filter(filter => this.checkedParty.includes(filter.party));
-      if (this.filteredByPartyArr.length === 0){
+      this.filteredByStateArr= [...this.membersArr].filter(filter => this.checkedState.includes(filter.state));
+      this.filteredTwice= [...this.filteredByPartyArr].filter(filter => this.checkedState.includes(filter.state));
+      if ((this.filteredByPartyArr.length === 0) && (this.checkedState === "ALL")){
         return this.membersArr;
+      }else if ((this.filteredByPartyArr.length === 0) && (this.checkedState !== "ALL")){
+        return this.filteredByStateArr
+      }else{
+        return this.filteredTwice;
       }
-      return this.filteredByPartyArr;
     },
+    //filterStateFun: function(){
 
-    filterRepublicans: function(){
-      this.filteredRepublicans = this.membersArr;
-      return this.filteredRepublicans.filter(filter => filter.party === "R");
-    },
-    filterDemocrats: function(){
-      this.filteredDemocrats = this.membersArr;
-      return this.filteredDemocrats.filter(filter => filter.party === "D");
-    },
-    filterIndependents: function(event){
-      console.log(event);
-      this.filteredIndependents = this.membersArr;
-      return this.filteredIndependents.filter(filter => filter.party === "ID");
-    },
+    //}
   },
 });
 app.fetchData();

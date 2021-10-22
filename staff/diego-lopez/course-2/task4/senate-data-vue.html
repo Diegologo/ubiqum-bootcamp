@@ -58,7 +58,7 @@
                     v-model="checkedParty">
                 <label for="independent">Independent</label> &nbsp;</p>
                 <p>Filter by State: &nbsp;
-                    <select name="filterState" id="stateDropDown">
+                    <select name="filterState" id="stateDropDown" v-model="checkedState">
                     <option value="ALL">All States</option>
                     <option value="AR">Arkansas</option>
                     <option value="AZ">Arizona</option>
