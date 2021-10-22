@@ -1,9 +1,16 @@
+/*això es un intent de filtre, no xuta
+Vue.filter('filterParty', function(array,partyToFilter){
+  return array.filter(filter => filter.party === partyToFilter)
+})*/
+
 var app = new Vue(
   {  
   el: '#app',  
   data: {    
     membersArr: [],
-    checkedParties: [],
+    checkedParty: [],
+    filteredByPartyArr: [],
+    selectedParty: [],
   },
 
 //fetch
@@ -20,24 +27,52 @@ var app = new Vue(
   }).then(json =>{
     console.log(json);
     app.membersArr = json.results[0].members;
-    console.log(app.membersArr)
-    return app.membersArr
+    console.log(app.membersArr);
+    return app.membersArr;
   }).catch((error)=>{
     console.log("no funciona", error);
   })
   },
   },
   computed :{
-    filterRepublicans: function(){
-      return this.membersArr.filter(filter => filter.party === "R")
-    }
-  },
-  filter :{
+    /*
+    filterFun: function(){
+      membersArr = []
+      this.filteredByPartyArr = this.membersArr.filter(filter => filter.party === this.checkedParty);
+      return this.filteredByPartyArr
+    },
+    */
+   /*
+    filterFun: function(){
+      this.filteredByPartyArr = this.membersArr.filter(value => this.checkedParty.includes(value));
+      return this.filteredByPartyArr
+    },
+    */
+      filterFun: function(){
+      this.filteredByPartyArr= [...this.membersArr].filter(filter => this.checkedParty.includes(filter.party));
+      if (this.filteredByPartyArr.length === 0){
+        return this.membersArr;
+      }
+      return this.filteredByPartyArr;
+    },
 
-  }
-}
-);
-app.fetchData()
+    filterRepublicans: function(){
+      this.filteredRepublicans = this.membersArr;
+      return this.filteredRepublicans.filter(filter => filter.party === "R");
+    },
+    filterDemocrats: function(){
+      this.filteredDemocrats = this.membersArr;
+      return this.filteredDemocrats.filter(filter => filter.party === "D");
+    },
+    filterIndependents: function(event){
+      console.log(event);
+      this.filteredIndependents = this.membersArr;
+      return this.filteredIndependents.filter(filter => filter.party === "ID");
+    },
+  },
+});
+app.fetchData();
+
 
 //listeners
 /*

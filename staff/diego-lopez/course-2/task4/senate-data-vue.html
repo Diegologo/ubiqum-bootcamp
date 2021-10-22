@@ -39,11 +39,23 @@
             </div>
             <div id="app">
                 <p>Filter by Party: &nbsp;
-                <input type="checkbox" id="republican" name="filterParty" value="R" v-on:click="membersArr = filterRepublicans">
+                <input type="checkbox"
+                    id="republican"
+                    name="checkedParty"
+                    value="R"
+                    @click="membersArr = filterRepublicans">
                 <label for="republican">Republican</label> &nbsp;
-                <input type="checkbox" id="democrat" name="filterParty" value="D" v-on:click="membersArr = ''">
+                <input type="checkbox"
+                    id="democrat"
+                    name="checkedParty"
+                    value="D"
+                    v-model="checkedParty">
                 <label for="democrat">Democrat</label> &nbsp;
-                <input type="checkbox" id="independent" name="filterParty" value="ID" v-on:click="membersArr = ''">
+                <input type="checkbox"
+                    id="independent"
+                    name="checkedParty"
+                    value="ID"
+                    v-model="checkedParty">
                 <label for="independent">Independent</label> &nbsp;</p>
                 <p>Filter by State: &nbsp;
                     <select name="filterState" id="stateDropDown">
@@ -106,7 +118,7 @@
                         <th>Seniority</th>
                         <th>% votes with party</th>
                     </tr>
-                    <tr v-for="value in membersArr">
+                    <tr v-for="(value, key) in filterFun">
                         <td>{{value.first_name}} {{value.middle_name}} {{value.last_name}}</td>
                         <td>{{value.party}}</td>
                         <td>{{value.state}}</td>
