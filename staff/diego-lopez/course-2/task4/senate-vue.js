@@ -54,5 +54,7 @@ var app = new Vue(
       }
     },
   },
+  created: function(){
+    this.fetchData();
+  },
 });
-app.fetchData();
