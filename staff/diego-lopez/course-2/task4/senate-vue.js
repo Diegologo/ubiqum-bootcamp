@@ -14,7 +14,6 @@ var app = new Vue(
     filteredByStateArr: [],
     filteredTwice: [],
     membersArr: [],
-    selectedParty: [],
   },
 
   //fetch
