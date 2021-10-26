@@ -1,5 +1,5 @@
 let membersArr
-let url = 'https://v3.openstates.org/people?jurisdiction=California'
+let url = 'https://v3.openstates.org/people?jurisdiction=Arkansas'
 
 function fetchFun(){
   fetch(url,{
@@ -22,12 +22,12 @@ fetchFun()
 
 
 //dropdown listener
-let states = "ALL"
+let states = ""
 document.getElementById("stateDropDown").addEventListener("change", function () {
   states = document.getElementById("stateDropDown").value;
   console.log(url)
-  let initialUrl = "https://v3.openstates.org/people?jurisdiction";
-  url = `${initialUrl}=${states.toString()}`;
+  let initialUrl = "https://v3.openstates.org/people?jurisdiction=";
+  url = `${initialUrl}${states.toString()}`;
   console.log(url);
   fetchFun()
 });
