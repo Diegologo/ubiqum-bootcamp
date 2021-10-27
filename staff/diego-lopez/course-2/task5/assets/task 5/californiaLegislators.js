@@ -1,6 +1,6 @@
 
 //variables
-let membersArr
+let membersArr = []
 let states = ""
 let initialUrl = "https://v3.openstates.org/people?jurisdiction=";
 let url = 'https://v3.openstates.org/people?jurisdiction=Arkansas'
@@ -17,7 +17,7 @@ function fetchFun(){
   }).then(json =>{
     console.log(json);
     membersArr = json.results;
-    buildTableWhole();
+    buildTable();
   }).catch((error)=>{
     console.log("API ERROR", error);
   });
@@ -35,51 +35,23 @@ document.getElementById("stateDropDown").addEventListener("change", function () 
 });
 
 
-
-
-
 // build table
-
-function buildTableWhole(){
+function buildTable(){
 
   document.getElementById("legislators").innerHTML = "";
 
-  let table = document.getElementById("legislators");
-  let thead = document.createElement('thead');
-  let tbody = document.createElement('tbody');
-
-
-  //build table header
-  let th1 = document.createElement('th');
-  let th2 = document.createElement('th');
-  let th3 = document.createElement('th');
-
-  let head1 = document.createTextNode("Name");
-  let head2 = document.createTextNode("Party");
-  let head3 = document.createTextNode("Chamber");
-
-  th1.appendChild(head1);
-  th2.appendChild(head2);
-  th3.appendChild(head3);
-
-  thead.appendChild(th1);
-  thead.appendChild(th2);
-  thead.appendChild(th3);
-
-
-//build table body
+  let tbody = document.getElementById("legislators");
 
 function getChamberTitle(index){
   return membersArr[index].current_role.title;
 }
+
 
   for (let i = 0; i < membersArr.length; i++){
 
   
     let tr = document.createElement('tr');
 
-  
-  
     let link = document.createElement('a');
     let td1 = document.createElement('td');
     let td2 = document.createElement('td');
@@ -89,7 +61,7 @@ function getChamberTitle(index){
   
     let text1 = document.createTextNode(membersArr[i].name);
     let text2 = document.createTextNode(membersArr[i].party);
-    let text3 = document.createTextNode(getChamberTitle(i))
+    let text3 = document.createTextNode(getChamberTitle(i));
 
 
     td1.appendChild(link);
@@ -102,8 +74,6 @@ function getChamberTitle(index){
     tr.appendChild(td3);
   
     tbody.appendChild(tr);
-    table.appendChild(thead);
-    table.appendChild(tbody);
   }
 };
 

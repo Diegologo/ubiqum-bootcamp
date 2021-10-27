@@ -3,51 +3,53 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../style.css">
     </head>
     
     <body>
          <nav class="container">
           <div>
             <div>
-              <a href="#">TGIF</a>
+                 <img class="logo" src="../images/house-logo.png" alt="logo">
+                 <a class="email" href="info@tgif.net">info@tgif.net</a>
             </div>
             <ul class="nav nav-tabs" role="tablist">
-                <li class="homeLink" href="home.html"><a href="#">Home</a></li>
+                <li class="homeLink">
+                    <a href="../../home.html">Home</a></li>
                 <li class="dropdown">
-                   <a id="actualPosition" class="dropdown-toggle" data-toggle="dropdown" href="">Congress 113<span class="caret"></span></a>
+                   <a class="dropdown-toggle" data-toggle="dropdown" href="">Congress 113<span class="caret"></span></a>
                    <ul class="dropdown-menu" role="menu">
                        <li>
-                           <a href="">Senate</a>
+                           <a href="../task 4/senate-data-vue.html">Senate</a>
                        </li>
                        <li>
-                           <a href="">House</a>
+                           <a href="../task 4/house-data-vue.html">House</a>
                        </li>
                    </ul>
                 </li>
                 <li class="dropdown">
-                    <a id="actualPosition" class="dropdown-toggle" data-toggle="dropdown" href="">Attendance<span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">Attendance<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="senate-attendance-statistics.html">Senate</a>
+                            <a href="../task3/senate-attendance-statistics.html">Senate</a>
                         </li>
                         <li>
-                            <a href="house-attendance-statistics.html">House</a>
+                            <a href="../task3/house-attendance-statistics.html">House</a>
                         </li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a id="actualPosition" class="dropdown-toggle" data-toggle="dropdown" href="">Party Loyalty<span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">Party Loyalty<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="senate-loyalty-statistics.html">Senate</a>
+                            <a href="../task3/senate-loyalty-statistics.html">Senate</a>
                         </li>
                         <li>
-                            <a href="house-loyalty-statistics.html">House</a>
+                            <a href="../task3/house-loyalty-statistics.html">House</a>
                         </li>
                     </ul>
                 </li>
-                <select name="filterState" id="stateDropDown">
+                <select name="filterState" id="stateDropDown">State Legislators selector
                     <option value="Arkansas">Arkansas</option>
                     <option value="Arizona">Arizona</option>
                     <option value="Alabama">Alabama</option>
@@ -106,10 +108,21 @@
             </div>
         </header>
         <!--Table container-->
-        <div class="container">
-            <table id="legislators" class="table table-striped">
-            </table>
-            <script id="statistics" src="californiaLegislators.js"></script>
+        <div class="container">            
+            <div>
+                <h1>State Legislators</h1>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Party</th>
+                    <th>Chamber</th>
+                  </tr>
+                </thead>
+                <tbody id="legislators"></tbody>
+              </table>
+            <script src="californiaLegislators.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

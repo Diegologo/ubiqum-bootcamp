@@ -5,7 +5,6 @@
 
 #actualPosition {
     background-color: darkgrey;
-    border-bottom: 1px solid black;
     color: black;
 }
 
@@ -40,4 +39,10 @@
     text-decoration: underline;
 }
 
-#more {display: none;}
+#more {
+    display: none;
+}
+
+#stateDropDown {
+    margin-top: 12px;
+}
