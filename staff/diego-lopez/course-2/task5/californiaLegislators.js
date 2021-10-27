@@ -1,4 +1,8 @@
+
+//variables
 let membersArr
+let states = ""
+let initialUrl = "https://v3.openstates.org/people?jurisdiction=";
 let url = 'https://v3.openstates.org/people?jurisdiction=Arkansas'
 
 function fetchFun(){
@@ -8,25 +12,23 @@ function fetchFun(){
     }
   })
   .then((response)=>{
-    console.log("funciona", response);
+    console.log("API OK", response);
     return response.json();
   }).then(json =>{
     console.log(json);
     membersArr = json.results;
     buildTableWhole();
   }).catch((error)=>{
-    console.log("no funciona", error);
+    console.log("API ERROR", error);
   });
 }
 fetchFun()
 
 
 //dropdown listener
-let states = ""
 document.getElementById("stateDropDown").addEventListener("change", function () {
   states = document.getElementById("stateDropDown").value;
   console.log(url)
-  let initialUrl = "https://v3.openstates.org/people?jurisdiction=";
   url = `${initialUrl}${states.toString()}`;
   console.log(url);
   fetchFun()
