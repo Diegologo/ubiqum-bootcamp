@@ -4,22 +4,26 @@ let membersArr = []
 let states = ""
 let initialUrl = "https://v3.openstates.org/people?jurisdiction=";
 let url = 'https://v3.openstates.org/people?jurisdiction=Arkansas'
+const spinner = document.getElementById("spinner");
 
 function fetchFun(){
+  spinner.removeAttribute('hidden');
   fetch(url,{
     headers:{
       'X-API-Key':'ba8aa145-cb0e-4c40-b460-42a242e4aa90'
     }
   })
   .then((response)=>{
-    console.log("API OK", response);
+    console.log("fetch OK", response);
     return response.json();
+    
   }).then(json =>{
     console.log(json);
     membersArr = json.results;
     buildTable();
+    spinner.setAttribute('hidden', '');
   }).catch((error)=>{
-    console.log("API ERROR", error);
+    console.log("fetch ERROR", error);
   });
 }
 fetchFun()

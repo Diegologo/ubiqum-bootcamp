@@ -138,6 +138,7 @@
                     <option value="WY">Wyoming</option>
                 </select> &nbsp;
                 </p>
+                <p v-if= "filterFun.length == 0">No rep meet your requirements</p>
                 <table class="table table-striped">
                     <tr>
                         <th>Senator</th>
@@ -146,6 +147,7 @@
                         <th>Seniority</th>
                         <th>% votes with party</th>
                     </tr>
+                    <div hidden id="spinner"></div>
                     <tr v-for="value in filterFun">
                         <td>{{value.first_name}} {{value.middle_name}} {{value.last_name}}</td>
                         <td>{{value.party}}</td>

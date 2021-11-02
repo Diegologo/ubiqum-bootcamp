@@ -69,12 +69,13 @@
             <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
     	    
             <h2>Senate at a glance</h2>
+            <div hidden id="spinner"></div>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Party</th>
-                        <th>Number of Reps</th>
-                        <th>% Voted with Prty</th>
+                        <th>No. of Reps</th>
+                        <th>% Voted w/ Party</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,7 +102,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Number of Missed Votes</th>
+                        <th>No. of Missed Votes</th>
                         <th>% Missed</th>
                     </tr>
                 </thead>
@@ -116,12 +117,12 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Number of Missed Votes</th>
+                        <th>No. of Missed Votes</th>
                         <th>% Missed</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr id="senateTopAttendance">
+                <tbody id="senateTopAttendance">
+                    <tr>
                     </tr>
                 </tbody>
             </table>
@@ -130,5 +131,5 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     	</div>    
-</body>
+    </body>
 </html>
