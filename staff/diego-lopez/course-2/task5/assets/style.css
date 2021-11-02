@@ -1,0 +1,79 @@
+.nav {
+    background-color: gainsboro;
+    border: 1px solid black;
+}
+
+#actualPosition {
+    background-color: darkgrey;
+    color: black;
+}
+
+.homeLink {
+    border-bottom: 1px solid black;
+    margin-left: 10px;
+}
+
+.logo {
+    height: 80px;
+    width: 80px;
+    margin: 10px 0px;
+}
+
+.email {
+    float: right;
+    margin: 40px 0px
+}
+
+.footer {
+    background-color: gainsboro;
+    border: 1px solid black;
+    text-align: center;
+    padding: 15px 0px;
+}
+
+.accordion-button{
+    background-color: white;
+    border: none;
+    color: royalblue;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+#more {
+    display: none;
+}
+
+#stateDropDown {
+    margin-top: 12px;
+}
+
+#spinner:not([hidden]) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #spinner::after {
+    content: "";
+    width: 80px;
+    height: 80px;
+    border: 2px solid #f3f3f3;
+    border-top: 3px solid #f25a41;
+    border-radius: 100%;
+    will-change: transform;
+    animation: spin 1s infinite linear
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
