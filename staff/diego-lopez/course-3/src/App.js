@@ -1,17 +1,44 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
-const Banner = props => (
-  <h1>{props.title}</h1>
-)
+const App = () => {
+  const [schedule, setSchedule] = useState();
+
+  const url = 'https://courses.cs.northwestern.edu/394/data/cs-courses.php';
+
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      const response = await fetch(url);
+      if (!response.ok) throw response;
+      const json = await response.json();
+      setSchedule(addScheduleTimes(json));
+     
+    }
+    fetchSchedule();
+  }, []);
+
+  if (!schedule) return <h1>Loading schedule...</h1>;
+
+  return (
+    <div className="container">
+      <Banner title={ schedule.title } />
+      <CourseList courses={ schedule.courses } />
+    </div>
+  );
+};
+
+const Banner = ({ title }) => (
+  <h1>{ title }</h1>
+);
 
 const CourseList = ({ courses }) => {
   const [term, setTerm] = useState('Fall');
   const [selected, setSelected] = useState([]);
   const termCourses = Object.values(courses).filter(course => term === getCourseTerm(course));
+
   
   return (
-    <>
+    <> {}
       <TermSelector term={term} setTerm={setTerm} />
       <div className="course-list">
       { 
@@ -21,13 +48,9 @@ const CourseList = ({ courses }) => {
           />) 
       }
       </div>
-    </>
+   </>
   );
 };
-
-const toggle = (x, lst) => (
-  lst.includes(x) ? lst.filter(y => y !== x) : [x, ...lst]
-);
 
 const TermButton = ({term, setTerm, checked}) => (
   <>
@@ -42,6 +65,7 @@ const TermButton = ({term, setTerm, checked}) => (
 const TermSelector = ({term, setTerm}) => (
   <div className="btn-group">
   { 
+  
     Object.values(terms).map(value => (
       <TermButton key={value} term={value} setTerm={setTerm} checked={value === term} />
     ))
@@ -77,6 +101,13 @@ const Course = ({ course, selected, setSelected }) => {
   );
 };
 
+const toggle = (x, lst) => (
+  lst.includes(x) ? lst.filter(y => y !== x) : [x, ...lst]
+ 
+);
+
+const days = ['M', 'Tu', 'W', 'Th', 'F'];
+
 const hasConflict = (course, selected) => (
   selected.some(selection => courseConflict(course, selection))
 );
@@ -94,7 +125,19 @@ const timeParts = meets => {
   };
 };
 
-const days = ['M', 'Tu', 'W', 'Th', 'F'];
+const mapValues = (fn, obj) => (
+  Object.fromEntries(Object.entries(obj).map(([key, value]) => [key, fn(value)]))
+);
+
+const addCourseTimes = course => ({
+  ...course,
+  ...timeParts(course.meets)
+});
+
+const addScheduleTimes = schedule => ({
+  title: schedule.title,
+  courses: mapValues(addCourseTimes, schedule.courses)
+});
 
 const daysOverlap = (days1, days2) => ( 
   days.some(day => days1.includes(day) && days2.includes(day))
@@ -112,41 +155,5 @@ const courseConflict = (course1, course2) => (
   getCourseTerm(course1) === getCourseTerm(course2)
   && timeConflict(course1, course2)
 );
-
-const mapValues = (fn, obj) => (
-  Object.fromEntries(Object.entries(obj).map(([key, value]) => [key, fn(value)]))
-);
-
-const addCourseTimes = course => ({
-  ...course,
-  ...timeParts(course.meets)
-});
-
-const addScheduleTimes = schedule => ({
-  title: schedule.title,
-  courses: mapValues(addCourseTimes, schedule.courses)
-});
-
-const App = () => {
-  const [schedule, setSchedule] = useState();
-  const url = 'https://courses.cs.northwestern.edu/394/data/cs-courses.php';
-
-  useEffect(() => {
-    const fetchSchedule = async () => {
-      const response = await fetch(url);
-      if (!response.ok) throw response;
-      const json = await response.json();
-      setSchedule(addScheduleTimes(json));
-    }
-    fetchSchedule();
-  }, [])
-
-  return (
-    <div className="container">
-      <Banner title={ schedule.title } />
-      <CourseList courses={ schedule.courses } />
-    </div>
-  );
-};
 
 export default App;
