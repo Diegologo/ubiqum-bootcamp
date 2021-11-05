@@ -1,7 +1,7 @@
 //IMPORTs, they are IMPORTant.
 import React, { useState } from 'react';
-import { App, TermSelector, toggle } from '../App.js';
-import terms, { mapValues, addCourseTimes, hasConflict } from '../utilities/times';
+import terms, { mapValues, addCourseTimes } from '../utilities/times';
+import Course, {getCourseTerm} from './Course.js';
 
 const CourseList = ({ courses }) => {
     const [term, setTerm] = useState('Fall');
@@ -25,36 +25,33 @@ const CourseList = ({ courses }) => {
 
 
 
-const getCourseTerm = course => (
-  terms[course.id.charAt(0)]
-);
-
-const getCourseNumber = course => (
-  course.id.slice(1, 4)
-);
-
 const addScheduleTimes = schedule => ({
   title: schedule.title,
   courses: mapValues(addCourseTimes, schedule.courses)
 });
 
-const Course = ({ course, selected, setSelected }) => {
-  const isSelected = selected.includes(course);
-  const isDisabled = !isSelected && hasConflict(course, selected);
-  const style = {
-    backgroundColor: isDisabled? 'lightgrey' : isSelected ? 'lightgreen' : 'white'
-  };
-  return (
-    <div className="card m-1 p-2" 
-      style={style}
-      onClick={isDisabled ? null : () =>  setSelected(toggle(course, selected))}>
-      <div className="card-body">
-        <div className="card-title">{ getCourseTerm(course) } CS { getCourseNumber(course) }</div>
-        <div className="card-text">{ course.title }</div>
-      </div>
-    </div>
-  );
-};
+const TermButton = ({term, setTerm, checked}) => (
+  <>
+    <input type="radio" id={term} className="btn-check" checked={checked} autoComplete="off"
+      onChange={() => setTerm(term)} />
+    <label class="btn btn-success m-1 p-2" htmlFor={term}>
+    { term }
+    </label>
+  </>
+);
 
-export {Course, getCourseNumber, addScheduleTimes, getCourseTerm};
+const TermSelector = ({term, setTerm}) => (
+  <div className="btn-group">
+  { 
+  
+    Object.values(terms).map(value => (
+      <TermButton key={value} term={value} setTerm={setTerm} checked={value === term} />
+    ))
+  }
+  </div>
+);
+
+
+
+export { addScheduleTimes };
 export default CourseList;

@@ -1,7 +1,5 @@
 //IMPORTs, they are IMPORTant.
-import React from 'react';
-import App, {toggle} from '../App.js';
-import {Course, getCourseTerm} from '../components/CourseList';
+import { getCourseTerm } from '../components/Course';
 
 const hasConflict = (course, selected) => (
     selected.some(selection => courseConflict(course, selection))
