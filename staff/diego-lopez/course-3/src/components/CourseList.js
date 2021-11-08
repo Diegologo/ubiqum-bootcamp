@@ -1,7 +1,32 @@
 //IMPORTs, they are IMPORTant.
 import React, { useState } from 'react';
-import terms, { mapValues, addCourseTimes } from '../utilities/times';
+import terms, { mapValues, addCourseTimes } from '../utilities/Times.js';
 import Course, {getCourseTerm} from './Course.js';
+
+const addScheduleTimes = schedule => ({
+  title: schedule.title,
+  courses: mapValues(addCourseTimes, schedule.courses)
+});
+
+const TermButton = ({term, setTerm, checked}) => (
+  <>
+    <input type="radio" id={term} className="btn-check" checked={checked} autoComplete="off"
+      onChange={() => setTerm(term)} />
+    <label class="btn btn-success m-1 p-2" htmlFor={term}>
+    { term }
+    </label>
+  </>
+);
+
+const TermSelector = ({term, setTerm}) => (
+  <div className="btn-group">
+  { 
+    Object.values(terms).map(value => (
+      <TermButton key={value} term={value} setTerm={setTerm} checked={value === term} />
+    ))
+  }
+  </div>
+);
 
 const CourseList = ({ courses }) => {
     const [term, setTerm] = useState('Fall');
@@ -22,36 +47,6 @@ const CourseList = ({ courses }) => {
      </>
     );
   };
-
-
-
-const addScheduleTimes = schedule => ({
-  title: schedule.title,
-  courses: mapValues(addCourseTimes, schedule.courses)
-});
-
-const TermButton = ({term, setTerm, checked}) => (
-  <>
-    <input type="radio" id={term} className="btn-check" checked={checked} autoComplete="off"
-      onChange={() => setTerm(term)} />
-    <label class="btn btn-success m-1 p-2" htmlFor={term}>
-    { term }
-    </label>
-  </>
-);
-
-const TermSelector = ({term, setTerm}) => (
-  <div className="btn-group">
-  { 
-  
-    Object.values(terms).map(value => (
-      <TermButton key={value} term={value} setTerm={setTerm} checked={value === term} />
-    ))
-  }
-  </div>
-);
-
-
 
 export { addScheduleTimes };
 export default CourseList;

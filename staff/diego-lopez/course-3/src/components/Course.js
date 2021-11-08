@@ -1,10 +1,9 @@
 //IMPORTs, they are IMPORTant.
 import React from 'react';
-import terms, { hasConflict } from "../utilities/times";
+import terms, { hasConflict } from "../utilities/Times";
 
 const toggle = (x, lst) => (
   lst.includes(x) ? lst.filter(y => y !== x) : [x, ...lst]
- 
 );
 
 const getCourseNumber = course => (
@@ -33,5 +32,5 @@ const Course = ({ course, selected, setSelected }) => {
     );
   };
 
-  export { getCourseTerm }
+  export { getCourseTerm };
   export default Course;
