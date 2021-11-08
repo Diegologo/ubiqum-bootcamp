@@ -2,7 +2,7 @@
 import React from 'react';
 import './App.css';
 import CourseList, {addScheduleTimes} from './components/CourseList';
-import useData from './utilities/firebase';
+import {useData} from './utilities/firebase';
 
 const App = () => {
   const [schedule, loading, error] = useData('/', addScheduleTimes); 
