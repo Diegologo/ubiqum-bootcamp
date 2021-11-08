@@ -22,4 +22,5 @@ const Banner = ({ title }) => (
   <h1>{ title }</h1>
 );
 
+//Exports, they EXpORT
 export default App;

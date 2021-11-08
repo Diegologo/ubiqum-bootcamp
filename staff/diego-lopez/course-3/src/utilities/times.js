@@ -48,5 +48,6 @@ const courseConflict = (course1, course2) => (
   && timeConflict(course1, course2)
 );
 
+//Exports, they EXpORT
 export { addCourseTimes, mapValues, hasConflict, timeParts };
 export default terms;
