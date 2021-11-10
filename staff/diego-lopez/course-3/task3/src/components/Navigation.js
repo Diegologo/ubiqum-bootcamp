@@ -8,7 +8,6 @@ const NavBar = ()=>{
                 <Link className="navbar-brand" to="/schedule">Game Information</Link>
             </div>
         </nav>
-       
    )
 };
 
