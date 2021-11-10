@@ -5,6 +5,7 @@ import banner from './assets/img/design1_image1.jpg';
 import NavBar from './components/Navigation';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Schedule from './components/Schedule';
+import GameLoc from './components/Games';
 
 function App() {
   return (
@@ -23,6 +24,11 @@ function App() {
             <h2>NYSL Game Information</h2>
             <hr />
             <Schedule/>
+          </Route>
+          <Route path="/Games">
+            <h2>Game Location</h2>
+            <hr />
+            <GameLoc/>
           </Route>
         </Switch>
         <h3>Contact Information</h3>
