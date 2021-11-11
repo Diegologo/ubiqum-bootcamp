@@ -5,7 +5,7 @@ import banner from './assets/img/design1_image1.jpg';
 import NavBar from './components/Navigation';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Schedule from './components/Schedule';
-import GameLoc from './components/Games';
+import GameLoc from './components/GameLoc';
 
 function App() {
   return (
@@ -20,12 +20,12 @@ function App() {
             <hr />
             <Events/>
           </Route>
-          <Route path="/Schedule">
+          <Route exact path="/Schedule">
             <h2>NYSL Game Information</h2>
             <hr />
             <Schedule/>
           </Route>
-          <Route path="/Games">
+          <Route path="/schedule/:id">
             <h2>Game Location</h2>
             <hr />
             <GameLoc/>
@@ -39,8 +39,8 @@ function App() {
 };
 
 const TopBanner = {
-  width: '95vw',
   height: '250px',
+  width: '95vw',
 };
 
 export default App;

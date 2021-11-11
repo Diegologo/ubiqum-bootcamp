@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import data from '../assets/games.json'
+import data from '../assets/games.json';
 import { Link } from "react-router-dom";
 
 const Schedule = () => {
@@ -17,12 +17,12 @@ const Schedule = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {games.game.september.map((data, i) => (
-                        <tr key = {i}>
-                            <th>{data.date}</th>
-                            <th>{data.time}</th>
-                            <th>{data.teams}</th>
-                            <th><Link to='/Games${data.date}'>{data.location}</Link></th>
+                    {games.game.september.map((data) => (
+                        <tr key = {data.id}>
+                            <th><Link to={`/schedule/${data.id}`} className = 'links'>{data.date}</Link></th>
+                            <th><Link to={`/schedule/${data.id}`} className = 'links'>{data.time}</Link></th>
+                            <th><Link to={`/schedule/${data.id}`} className = 'links'>{data.teams}</Link></th>
+                            <th><Link to={`/schedule/${data.id}`} className = 'links'>{data.location}</Link></th>
                         </tr>
                     ))}
                 </tbody>
@@ -38,12 +38,12 @@ const Schedule = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {games.game.october.map((data, i) => (
-                        <tr key = {i}>
-                            <th>{data.date}</th>
-                            <th>{data.time}</th>
-                            <th>{data.teams}</th>
-                            <th>{data.location}</th>
+                    {games.game.october.map((data) => (
+                        <tr key = {data.id}>
+                            <th><Link to={`/schedule/${data.id}`} className = 'links'>{data.date}</Link></th>
+                            <th><Link to={`/schedule/${data.id}`} className = 'links'>{data.time}</Link></th>
+                            <th><Link to={`/schedule/${data.id}`} className = 'links'>{data.teams}</Link></th>
+                            <th><Link to={`/schedule/${data.id}`} className = 'links'>{data.location}</Link></th>
                         </tr>
                     ))}
                 </tbody>
