@@ -26,7 +26,7 @@ const GameLoc = () => {
                     <br/><hr/>
                     <div>
                         <p>Field of the match:</p>
-                        <iframe src={GameLocation[valor].url} width="100%" height="450" frameBorder="0" style={{border:0}} allowFullScreen="" aria-hidden="false" tabIndex="0"></iframe><hr/>
+                        <iframe title={GameLocation[valor].location} src={GameLocation[valor].url} width="100%" height="450" frameBorder="0" style={{border:0}} allowFullScreen="" aria-hidden="false" tabIndex="0"></iframe><hr/>
                     </div>
                 </div>
             )}
@@ -39,3 +39,4 @@ const GameLoc = () => {
 };
 
 export default GameLoc;
+export {}

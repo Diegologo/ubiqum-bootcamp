@@ -1,0 +1,41 @@
+{
+  "messages": {
+    "game-1": {
+      "message-1": {
+        "author": "abc@example.com",
+        "text": "great job guarding the goal, Kevin!",
+        "timestamp": 1626713122679
+      },
+      "message-2": {
+        "author": "abc@example.com",
+        "text": "oh god, a pack of bears have entered the field!",
+        "timestamp": 1626713122680
+      },
+      "message-3": {
+        "author": "def@example.com",
+        "text": "hurry! we have to open the gate to let the children out!",
+        "timestamp": 1626713122681
+      },
+      "message-4": {
+        "author": "abc@example.com",
+        "text": "no! the bears could get out too and become a hazard to Chicago, we have to hold them inside",
+        "timestamp": 1626713122683
+      },
+      "message-5": {
+        "author": "def@example.com",
+        "text": "but the children...",
+        "timestamp": 1626713122684
+      },
+      "message-6": {
+        "author": "abc@example.com",
+        "text": "its the law of nature, survival of the fittest, hopefully the bears are not too hungry...",
+        "timestamp": 1626713122685
+      },
+      "message-7": {
+        "author": "def@example.com",
+        "text": "oh no! they got Kevin, motherfuckers!",
+        "timestamp": 1626713122686
+      }
+    }
+  }
+}
