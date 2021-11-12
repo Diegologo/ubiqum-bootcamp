@@ -6,6 +6,8 @@ const Schedule = () => {
     const [games] = useState(data)
     return (
         <div>
+            <h2>NYSL Game Information</h2>
+            <hr/>
             <h3>September</h3>
             <table className="table table-striped">
                 <thead>

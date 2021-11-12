@@ -30,7 +30,7 @@ const TermSelector = ({term, setTerm}) => {
         )
       }
       </div>
-      { user ? <SignOuButton /> : <SignInButton /> }
+      { user ? <SignOutButton /> : <SignInButton /> }
     </div>
   );
 };
@@ -42,7 +42,7 @@ const SignInButton = () => (
   </button>
 );
 
-const SignOuButton = () => (
+const SignOutButton = () => (
   <button className="btn btn-secondary btn-sm"
       onClick={() => signOut()}>
     Sign Out

@@ -9,6 +9,8 @@ const Event = ({ date, description }) => {
 const Events = () =>{
     return (
         <div>
+            <h2>Upcoming Events</h2>
+            <hr/>
             <Event
                 date={'August 4'}
                 description={'NYSL Fundraiser'}
@@ -21,6 +23,7 @@ const Events = () =>{
                 date={'September 1'}
                 description={'First Game of the Season (Check Game Schedule for details)'}
             />
+            <hr/>
         </div>
     )
 };
@@ -29,7 +32,8 @@ const Events = () =>{
 
 const Contact = () =>{
     return(
-        <div>
+        <div style={{textAlign:'center'}}>
+            <h3>Contact Information</h3>
             <p>Please email us at <a href="mailto:nysl@chisoccer.org">nysl@chisoccer.org</a></p>
             <p>We will reply to your email as soon as we can.</p>
         </div>

@@ -4,13 +4,13 @@ import { getDatabase, onValue, ref, set } from 'firebase/database';
 import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCO_kw8GpINjKoVL7KhASxxC7LKnuvzwq0",
-    authDomain: "ubiqum-course-3.firebaseapp.com",
-    databaseURL: "https://ubiqum-course-3-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "ubiqum-course-3",
-    storageBucket: "ubiqum-course-3.appspot.com",
-    messagingSenderId: "4525090014",
-    appId: "1:4525090014:web:754070ce3304a62b0fce4f"
+  apiKey: "AIzaSyCO_kw8GpINjKoVL7KhASxxC7LKnuvzwq0",
+  authDomain: "ubiqum-course-3.firebaseapp.com",
+  databaseURL: "https://ubiqum-course-3-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "ubiqum-course-3",
+  storageBucket: "ubiqum-course-3.appspot.com",
+  messagingSenderId: "4525090014",
+  appId: "1:4525090014:web:754070ce3304a62b0fce4f"
 };
 
 const firebase = initializeApp(firebaseConfig);
@@ -42,8 +42,6 @@ export const useData = (path, transform) => {
 };
 
 const firebaseSignOut = () => signOut(getAuth(firebase));
-
-
 
 //Exports, they EXpORT
 export const setData = (path, value) => (

@@ -15,28 +15,21 @@ function App() {
         <h1>Il cavalieri Davi</h1>
         <img className='TopBanner' src={banner} alt="cool banner"/>
         <NavBar/>
-        <Switch>
-          <Route exact path="/">
-            <h2>Upcoming Events</h2>
-            <hr/>
-            <Events/>
-          </Route>
-          <Route exact path="/Schedule">
-            <h2>NYSL Game Information</h2>
-            <hr/>
-            <Schedule/>
-          </Route>
-          <Route path="/schedule/:id">
-            <h2>Game Location</h2>
-            <hr/>
-            <GameLoc/>
-          </Route>
-        </Switch>
-        <h3>Contact Information</h3>
-        <Contact/>
         <div style={{textAlign:'center'}}>
           <img id="logo" src={logo} alt="logo"/>
         </div>
+        <Switch>
+          <Route exact path="/">
+            <Events/>
+          </Route>
+          <Route exact path="/Schedule">
+            <Schedule/>
+          </Route>
+          <Route path="/schedule/:id">
+            <GameLoc/>
+          </Route>
+        </Switch>
+        <Contact/>
       </div>
     </Router>
   );
