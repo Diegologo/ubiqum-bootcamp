@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, onValue, ref, set } from 'firebase/database';
-import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut} from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
+import 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA7IQCKssE6prFPhcU1gFGKWH1oKK298QI",
@@ -15,7 +16,7 @@ const firebaseConfig = {
 
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
-const guest = getAuth();
+const firebaseSignOut = () => signOut(getAuth(firebase));
 
 const SignInButton = () => (
   <button className="btn btn-secondary btn-sm"
@@ -26,7 +27,7 @@ const SignInButton = () => (
 
 const SignOutButton = () => (
 <button className="btn btn-secondary btn-sm"
-    onClick={() =>signOut(guest)}>
+    onClick={() => firebaseSignOut()}>
   Sign Out
 </button>
 );
@@ -43,5 +44,5 @@ export const useUserState = () => {
 
   return [user];
 };
+
 export { SignInButton, SignOutButton};
-export {signOut };
