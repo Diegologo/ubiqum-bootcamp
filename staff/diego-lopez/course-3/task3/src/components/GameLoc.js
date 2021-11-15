@@ -2,6 +2,18 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import data from '../assets/games.json'
 import { Link } from "react-router-dom";
+import { useUserState } from "../utilities/firebase";
+import { getAuth } from "firebase/auth";
+
+
+const Test = () => {
+        const [user] = useUserState();
+    return(
+        <div>
+            { user ? <p>paio logeao</p> : <p>paio sin logeá</p> }
+        </div>
+     )
+}
 
 const GameLoc = () => {
     const {id} = useParams();
@@ -39,4 +51,4 @@ const GameLoc = () => {
 };
 
 export default GameLoc;
-export {}
+export {Test}

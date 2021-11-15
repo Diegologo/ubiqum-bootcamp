@@ -5,8 +5,9 @@ import banner from './assets/img/design1_image1.jpg';
 import NavBar from './components/Navigation';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Schedule from './components/Schedule';
-import GameLoc from './components/GameLoc';
+import GameLoc, {Test} from './components/GameLoc';
 import logo from './assets/img/nysl_logo.png';
+import Chatroom, {ChatMessage} from './components/Chat';
 
 function App() {
   return (
@@ -23,7 +24,12 @@ function App() {
             <Events/>
           </Route>
           <Route exact path="/Schedule">
+            <Test/>
             <Schedule/>
+          </Route>
+          <Route exact path="/Chat">
+            <Chatroom/>
+            <ChatMessage/>
           </Route>
           <Route path="/schedule/:id">
             <GameLoc/>
