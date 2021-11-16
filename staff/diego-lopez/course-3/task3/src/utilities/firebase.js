@@ -45,4 +45,4 @@ export const useUserState = () => {
   return [user];
 };
 
-export { SignInButton, SignOutButton, getAuth};
+export { SignInButton, SignOutButton, getAuth };

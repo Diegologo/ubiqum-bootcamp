@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Schedule from './components/Schedule';
 import GameLoc, {Test} from './components/GameLoc';
 import logo from './assets/img/nysl_logo.png';
-import Chatroom, {ChatMessage} from './components/Chat';
+import ChatContent from './components/Chat';
 
 function App() {
   return (
@@ -28,8 +28,7 @@ function App() {
             <Schedule/>
           </Route>
           <Route exact path="/Chat">
-            <Chatroom/>
-            <ChatMessage/>
+          <ChatContent/>
           </Route>
           <Route path="/schedule/:id">
             <GameLoc/>
