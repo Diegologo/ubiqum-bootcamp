@@ -32,7 +32,7 @@ const Events = () =>{
 
 const Contact = () =>{
     return(
-        <div style={{textAlign:'center'}}>
+        <div id="contact" style={{textAlign:'center'}}>
             <h3>Contact Information</h3>
             <p>Please email us at <a href="mailto:nysl@chisoccer.org">nysl@chisoccer.org</a></p>
             <p>We will reply to your email as soon as we can.</p>

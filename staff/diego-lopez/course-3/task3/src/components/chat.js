@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
 import '../App.css';
-import { initializeApp } from 'firebase/app';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
-import { firebaseConfig } from '../utilities/firebase';
 import { getAuth } from 'firebase/auth';
 import { 
   collection,
@@ -15,16 +13,16 @@ import {
 } from "firebase/firestore";
 
 
-const firebase = initializeApp(firebaseConfig);
 const auth = getAuth();
 //const firestore = getFirestore();
 
 function ChatRoom() {
     const dummy = useRef();
     const db = getFirestore();
+    console.log(getFirestore(),'ciaooo')
     const messagesRef = collection(db,'messages');
-    const q = query(messagesRef, orderBy("timestamp"), limit(3));
-    
+    const q = query(messagesRef, orderBy("timestamp"), limit(20));
+  
     const [messages] = useCollectionData(q, { idField: 'id' });
 
     const [formValue, setFormValue] = useState('');
@@ -33,6 +31,7 @@ function ChatRoom() {
       e.preventDefault();
   
       const { uid } = auth.currentUser;
+      console.log('send')
       await addDoc(collection(db,'messages'),{
         uid,
         text: formValue,
@@ -42,6 +41,7 @@ function ChatRoom() {
       setFormValue('');
       dummy.current.scrollIntoView({ behavior: 'smooth' });
     }
+  console.log(sendMessage,'MESSAGE')
     return (<>
       <main>
   
@@ -61,7 +61,6 @@ function ChatRoom() {
     </>)
   }
   
-  
   function ChatMessage(props) {
     const { text, uid } = props.message;
   
@@ -75,4 +74,3 @@ function ChatRoom() {
   }
 
   export default ChatRoom;
-  

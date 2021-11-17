@@ -5,7 +5,7 @@ import banner from './assets/img/design1_image1.jpg';
 import NavBar from './components/Navigation';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Schedule from './components/Schedule';
-import GameLoc, {Test} from './components/GameLoc';
+import GameLoc from './components/GameLoc';
 import logo from './assets/img/nysl_logo.png';
 import ChatRoom from './components/Chat';
 
@@ -22,19 +22,20 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Events/>
+            <Contact/>
           </Route>
           <Route exact path="/Schedule">
-            <Test/>
             <Schedule/>
+            <Contact/>
           </Route>
           <Route exact path="/Chat">
           <ChatRoom/>
           </Route>
           <Route path="/schedule/:id">
             <GameLoc/>
+            <Contact/>
           </Route>
         </Switch>
-        <Contact/>
       </div>
     </Router>
   );
