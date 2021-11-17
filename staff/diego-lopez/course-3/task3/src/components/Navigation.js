@@ -9,14 +9,8 @@ const NavBar = ()=>{
                 <Link className="navbar-brand" to="/">Home</Link>
                 <Link className="navbar-brand" to="/schedule">Game Information</Link>
                 { user ? <SignOutButton /> : <SignInButton /> }
-                { user ? <ChatButton/> : null}
             </div>
         </nav>
     )
 };
-
-const ChatButton = () => (
-    <Link className="navbar-brand" to="/Chat">Chatroom</Link>
-);
-
 export default NavBar;

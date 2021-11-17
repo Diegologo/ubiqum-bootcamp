@@ -24,21 +24,21 @@ function App() {
             <Events/>
             <Contact/>
           </Route>
-          <Route exact path="/Schedule">
+          <Route exact path="/schedule">
             <Schedule/>
             <Contact/>
           </Route>
-          <Route exact path="/Chat">
-          <ChatRoom/>
-          </Route>
-          <Route path="/schedule/:id">
+          <Route exact path="/schedule/:id">
             <GameLoc/>
             <Contact/>
+          </Route>
+          <Route path="/schedule/:id/game:id">
+          <ChatRoom/>
           </Route>
         </Switch>
       </div>
     </Router>
-  );
+  )
 };
 
 export default App;

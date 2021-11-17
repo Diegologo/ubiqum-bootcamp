@@ -4,7 +4,7 @@ const Event = ({ date, description }) => {
             <p>{date}<br/>{description}</p>
         </div>
     )
-}
+};
 
 const Events = () =>{
     return (

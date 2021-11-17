@@ -51,7 +51,7 @@ const Schedule = () => {
                 </tbody>
             </table>
         </div>
-    );
+    )
 };
 
 export default Schedule;
