@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, onValue, ref, set } from 'firebase/database';
 import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
 import 'firebase/auth';
 
@@ -15,7 +14,6 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
-const database = getDatabase(firebase);
 const firebaseSignOut = () => signOut(getAuth(firebase));
 
 const SignInButton = () => (
@@ -46,3 +44,4 @@ export const useUserState = () => {
 };
 
 export { SignInButton, SignOutButton, getAuth };
+export { firebaseConfig }

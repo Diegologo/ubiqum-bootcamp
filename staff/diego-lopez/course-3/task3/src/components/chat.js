@@ -1,20 +1,30 @@
 import React, { useRef, useState } from 'react';
 import '../App.css';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
-import {useCollectionData} from 'react-firebase-hooks/firestore'
+import { initializeApp } from 'firebase/app';
+import {useCollectionData} from 'react-firebase-hooks/firestore';
+import { firebaseConfig } from '../utilities/firebase';
+import { getAuth } from 'firebase/auth';
+import { collection,query, orderBy, limit,getFirestore,doc } from "firebase/firestore";
 
 
-const auth = firebase.auth();
-const firestore = firebase.firestore();
+
+
+const firebase = initializeApp(firebaseConfig);
+const auth = getAuth();
+//const firestore = getFirestore();
 
 function ChatRoom() {
     const dummy = useRef();
-    const messagesRef = firestore.collection('messages');
-    const query = messagesRef.orderBy('createdAt').limit(25);
+    const db = getFirestore();
+    console.log(getFirestore(),'ciaooo')
+    const messagesRef = collection(db,'messages');
+    const q = query(messagesRef, orderBy("timestamp"), limit(3));
+    
+
   
-    const [messages] = useCollectionData(query, { idField: 'id' });
+    const [messages] = useCollectionData(q, { idField: 'id' });
+
+
   
     const [formValue, setFormValue] = useState('');
   
