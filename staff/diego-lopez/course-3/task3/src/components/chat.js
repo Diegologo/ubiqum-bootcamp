@@ -17,20 +17,21 @@ import {
 
 
 const auth = getAuth();
-//const firestore = getFirestore();
 
+//db conection
 function ChatRoom() {
   const {id} = useParams();
   const dummy = useRef();
   const db = getFirestore();
   const messagesRef = collection(db,'messages');
 
- 
-  const q = query(messagesRef, orderBy("timestamp"), limit(20));
+  //const q =  query(messagesRef, orderBy("timestamp"), limit(20));
+  const q = query(messagesRef, where("game","==",`${id}`));
 
   const [messages] = useCollectionData(q, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
 
+  //message writing
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -43,6 +44,7 @@ function ChatRoom() {
       photoURL
     })
 
+    //scroll down when new message and message button
     setFormValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
@@ -65,16 +67,16 @@ function ChatRoom() {
   </>)
 };
 
+//message body
 function ChatMessage(props) {
-  const {id} = useParams();
-  const { text, uid, game, photoURL } = props.message;
+  const { text, uid, photoURL } = props.message;
 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (<>
     <div className={`message ${messageClass}`}>
-      <img src={photoURL || logo} />
-      <p>{`${text}nya`}</p>
+      <img alt='userPhoto' src={photoURL || logo} />
+      <p>{`${text}nya!`}</p>
     </div>
   </>)
 };

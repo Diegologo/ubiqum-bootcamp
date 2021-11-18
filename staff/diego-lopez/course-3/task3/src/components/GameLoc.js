@@ -10,6 +10,7 @@ const GameLoc = () => {
     const [user] = useUserState();
     const [GameLocation, setGameLocation] = useState([]);
 
+    //game filter by id and month and asigning them to object
     useEffect(() => {
         const gameLocSep = data.game.september.filter(filter => filter.id === id);
         const gameLocOct = data.game.october.filter(filter => filter.id === id);
@@ -17,6 +18,7 @@ const GameLoc = () => {
         setGameLocation(object)
     }, [id])
 
+    //body of game location details, which change according to the game selected.
     return (
         <div>
             {Object.keys(GameLocation).map(valor =>
@@ -44,6 +46,7 @@ const GameLoc = () => {
     )
 };
 
+//button for chat section
 const ChatButton = () => {
     const {id} = useParams();
     return (

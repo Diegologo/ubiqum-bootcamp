@@ -14,7 +14,9 @@ function App() {
     <Router>
       <div className='container-fluid'>
         <h1>Il cavalieri Davi</h1>
-        <img className='TopBanner' src={banner} alt="cool banner"/>
+        <div style={{textAlign:'center'}}>
+          <img className='TopBanner' src={banner} alt="cool banner"/>
+        </div>
         <NavBar/>
         <div style={{textAlign:'center'}}>
           <img id="logo" src={logo} alt="logo"/>
