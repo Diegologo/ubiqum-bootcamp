@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import '../App.css';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import { getAuth } from 'firebase/auth';
+import logo from '../assets/img/nysl_logo.png'
 import { 
   collection,
   query,
   orderBy,
   limit,
+  where,
   getFirestore,
   addDoc,
   serverTimestamp
@@ -22,6 +24,8 @@ function ChatRoom() {
   const dummy = useRef();
   const db = getFirestore();
   const messagesRef = collection(db,'messages');
+
+ 
   const q = query(messagesRef, orderBy("timestamp"), limit(20));
 
   const [messages] = useCollectionData(q, { idField: 'id' });
@@ -30,12 +34,13 @@ function ChatRoom() {
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const { uid } = auth.currentUser;
+    const { uid, photoURL } = auth.currentUser;
     await addDoc(collection(db,'messages'),{
       uid,
       text: formValue,
       timestamp: serverTimestamp(),
-      game: id
+      game: id,
+      photoURL
     })
 
     setFormValue('');
@@ -61,13 +66,15 @@ function ChatRoom() {
 };
 
 function ChatMessage(props) {
-  const { text, uid } = props.message;
+  const {id} = useParams();
+  const { text, uid, game, photoURL } = props.message;
 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (<>
     <div className={`message ${messageClass}`}>
-      <p>{text}</p>
+      <img src={photoURL || logo} />
+      <p>{`${text}nya`}</p>
     </div>
   </>)
 };
