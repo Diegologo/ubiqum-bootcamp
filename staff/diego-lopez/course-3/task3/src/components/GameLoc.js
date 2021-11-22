@@ -46,6 +46,7 @@ const GameLoc = () => {
     )
 };
 
+
 //button for chat section
 const ChatButton = () => {
     const {id} = useParams();

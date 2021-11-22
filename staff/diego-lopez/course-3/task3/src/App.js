@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <div className='container-fluid'>
-        <h1>Il cavalieri Davi</h1>
+        <h1>Northside Youth Soccer League</h1>
         <div style={{textAlign:'center'}}>
           <img className='TopBanner' src={banner} alt="cool banner"/>
         </div>

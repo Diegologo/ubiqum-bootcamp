@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
 import 'firebase/auth';
 
+
 //server
 const firebaseConfig = {
   apiKey: "AIzaSyA7IQCKssE6prFPhcU1gFGKWH1oKK298QI",
@@ -17,20 +18,22 @@ const firebaseConfig = {
 const firebase = initializeApp(firebaseConfig);
 const firebaseSignOut = () => signOut(getAuth(firebase));
 
+
 //buttons for login and logout
 const SignInButton = () => (
-  <button className="btn btn-secondary btn-sm"
+  <button className="navbar-brand bg-light"
       onClick={() => signInWithGoogle()}>
     Sign In
   </button>
 );
 
 const SignOutButton = () => (
-<button className="btn btn-secondary btn-sm"
+<button className="navbar-brand bg-light"
     onClick={() => firebaseSignOut()}>
   Sign Out
 </button>
 );
+
 
 //login and logut
 export const signInWithGoogle = () => {

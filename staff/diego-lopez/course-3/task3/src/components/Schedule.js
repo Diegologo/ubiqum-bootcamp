@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import data from '../assets/games.json';
 import { Link } from "react-router-dom";
 
+
 //the schedule texts has links to GameLoc
 const Schedule = () => {
     const [games] = useState(data)

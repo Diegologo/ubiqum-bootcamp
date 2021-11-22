@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import '../App.css';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import { getAuth } from 'firebase/auth';
 import logo from '../assets/img/nysl_logo.png'
@@ -31,6 +30,16 @@ function ChatRoom() {
   const [messages] = useCollectionData(q, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
 
+//test await function to try to filter the messages by date once the query has filtered them by game:id
+/*
+const messages1 = async () => {
+  let messageRef = collection(db,'messages');
+  let [allmessageRef] = await  useCollectionData(q, { idField: 'id' });
+ console.log(allmessageRef)
+}
+console.log(messages1,'oooo');
+*/
+
   //message writing
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -43,7 +52,6 @@ function ChatRoom() {
       game: id,
       photoURL
     })
-
     //scroll down when new message and message button
     setFormValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
@@ -67,10 +75,10 @@ function ChatRoom() {
   </>)
 };
 
+
 //message body
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
-
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (<>
