@@ -44,13 +44,14 @@ console.log(messages1,'oooo');
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const { uid, photoURL } = auth.currentUser;
+    const { uid, photoURL, displayName } = auth.currentUser;
     await addDoc(collection(db,'messages'),{
       uid,
       text: formValue,
       timestamp: serverTimestamp(),
       game: id,
-      photoURL
+      photoURL,
+      displayName
     })
     //scroll down when new message and message button
     setFormValue('');
@@ -78,13 +79,16 @@ console.log(messages1,'oooo');
 
 //message body
 function ChatMessage(props) {
-  const { text, uid, photoURL } = props.message;
+  const { text, uid, photoURL, displayName } = props.message;
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (<>
     <div className={`message ${messageClass}`}>
       <img alt='userPhoto' src={photoURL || logo} />
-      <p>{`${text}nya!`}</p>
+      <div style={{flexDirection: 'column'}}>
+        <p id='userName'>{displayName}</p>
+        <p>{`${text}nya!`}</p>
+      </div>
     </div>
   </>)
 };

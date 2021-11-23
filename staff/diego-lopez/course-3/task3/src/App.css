@@ -153,6 +153,13 @@ p {
   align-items: center;
 }
 
+#userName {
+  display: flex;
+  align-items: center;
+  color: darkgray;
+  background: none;
+}
+
 .sent {
   flex-direction: row-reverse;
 }
