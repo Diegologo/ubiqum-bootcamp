@@ -11,7 +11,7 @@ import {
   where,
   getFirestore,
   addDoc,
-  serverTimestamp
+  serverTimestamp,
 } from "firebase/firestore";
 
 
@@ -22,30 +22,20 @@ function ChatRoom() {
   const {id} = useParams();
   const dummy = useRef();
   const db = getFirestore();
-  const messagesRef = collection(db,'messages');
-
-  //const q =  query(messagesRef, orderBy("timestamp"), limit(20));
-  const q = query(messagesRef, where("game","==",`${id}`));
-
-  const [messages] = useCollectionData(q, { idField: 'id' });
+  const messagesRef = collection(db,`messages`);
+  
+  //const q = query(messagesRef, orderBy("timestamp"), limit(20));
+  const q = query(messagesRef, where("game","==",`${id}`), limit ());
+  
+  const [messagesData] = useCollectionData(q, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
-
-//test await function to try to filter the messages by date once the query has filtered them by game:id
-/*
-const messages1 = async () => {
-  let messageRef = collection(db,'messages');
-  let [allmessageRef] = await  useCollectionData(q, { idField: 'id' });
- console.log(allmessageRef)
-}
-console.log(messages1,'oooo');
-*/
 
   //message writing
   const sendMessage = async (e) => {
     e.preventDefault();
 
     const { uid, photoURL, displayName } = auth.currentUser;
-    await addDoc(collection(db,'messages'),{
+    await addDoc(collection(db,`messages`),{
       uid,
       text: formValue,
       timestamp: serverTimestamp(),
@@ -60,7 +50,7 @@ console.log(messages1,'oooo');
   return (<>
     <main>
 
-      {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+      {messagesData && messagesData.map(msg => <ChatMessage key={msg.id} message={msg} />)}
 
       <span ref={dummy}></span>
 

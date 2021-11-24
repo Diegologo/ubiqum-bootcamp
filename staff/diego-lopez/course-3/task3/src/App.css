@@ -85,7 +85,7 @@ main::-webkit-scrollbar-thumb {
 }
 
 form {
-  height: 10vh;
+  height: 8vh;
   position: fixed;
   bottom: 0;
   background-color: rgb(24, 23, 23);

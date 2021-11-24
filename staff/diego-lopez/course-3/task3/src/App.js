@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Schedule from './components/Schedule';
 import GameLoc from './components/GameLoc';
 import logo from './assets/img/nysl_logo.png';
-import ChatRoom from './components/Chat';
+import ChatRoom from './components/Chats';
 
 function App() {
   return (
