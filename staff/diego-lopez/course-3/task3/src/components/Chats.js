@@ -24,8 +24,8 @@ function ChatRoom() {
   const db = getFirestore();
   const messagesRef = collection(db,`messages`);
   
-  //const q = query(messagesRef, orderBy("timestamp"), limit(20));
-  const q = query(messagesRef, where("game","==",`${id}`), limit ());
+  //for this query to work, a composite index must be done in firestore, in this case filtering game and timestamp ascending to GROUP collection.
+  const q = query(messagesRef, where("game","==",`${id}`), orderBy("timestamp"), limit(20));
   
   const [messagesData] = useCollectionData(q, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
