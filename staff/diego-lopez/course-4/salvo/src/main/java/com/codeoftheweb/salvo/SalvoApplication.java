@@ -9,7 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 public class SalvoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SalvoApplication.class);
+		SpringApplication.run(SalvoApplication.class, args);
 	}
     @Bean
     public CommandLineRunner initData(PlayerRepository repository) {
