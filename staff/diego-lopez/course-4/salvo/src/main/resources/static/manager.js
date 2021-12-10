@@ -20,7 +20,7 @@ $(function() {
   
     // handler for when user clicks add person
     function addPlayer() {
-      var name = $("#email").val();
+      var name = $("#nickName").val();
       if (name) {
         postPlayer(name);
       }
@@ -28,28 +28,25 @@ $(function() {
   
     // code to post a new player using AJAX
     // on success, reload and display the updated data from the server
-  
     function postPlayer(userName) {
       $.post({
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        dataType: "text",
-        url: "/players",
-        data: JSON.stringify({ "userName": userName })
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          dataType: "text",
+          url: "/players",
+          data: JSON.stringify({ "userName": userName })
       })
-      .done(function( ) {
-        showOutput( "Saved -- reloading");
-        loadData();
-        console.log("xuta")
-      })
-      .fail(function( jqXHR, textStatus ) {
-        showOutput( "Failed: " + textStatus );
-        console.log("això no xuta")
-      });
-    }
-  
-    $("#add_player").on("click", addPlayer);
-  
-    loadData();
+          .done(function( ) {
+              showOutput( "Saved -- reloading");
+              loadData();
+          })
+          .fail(function( jqXHR, textStatus ) {
+              showOutput( "Failed: " + textStatus );
+          });
+  }
+
+  $("#addPlayer").on("click", addPlayer);
+  loadData();
+    
   });
