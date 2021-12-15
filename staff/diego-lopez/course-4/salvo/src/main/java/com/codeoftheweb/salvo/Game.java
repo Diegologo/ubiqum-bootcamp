@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
+import java.time.Instant;
 
 @Entity
 public class Game {
@@ -14,21 +14,23 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
-    private Date creationDate;
+    private Instant creationDate;
   
-    //Constructores
-    public Game(){}
+    //Constructor
+    public Game() {
+        this.creationDate = Instant.now();
+    }
 
-    public Game(Date dateGame){
+    public Game(Instant dateGame){
         creationDate = dateGame;
     }
 
     //Getters y Setters
-    public Date getCreationDate() {
+    public Instant getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Instant creationDate) {
         this.creationDate = creationDate;
     }
 }
