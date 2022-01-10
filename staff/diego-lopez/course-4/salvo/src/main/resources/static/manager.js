@@ -8,7 +8,7 @@ $(function() {
   // load and display JSON sent by server for /players
 
   function loadData() {
-    $.get("/games")
+    $.get("/api/games")
     .done(function(data) {
       showOutput(JSON.stringify(data, null, 2));
     })
