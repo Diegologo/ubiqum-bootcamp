@@ -33,4 +33,12 @@ public class Game {
     public void setCreationDate(Instant creationDate) {
         this.creationDate = creationDate;
     }
+
+    public long getId(){
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }
