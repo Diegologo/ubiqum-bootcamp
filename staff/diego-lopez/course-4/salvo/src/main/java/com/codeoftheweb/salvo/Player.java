@@ -21,10 +21,10 @@ public class Player {
     this.userName = user;
   }
 
-  public long getId(){
+  public long getPlayerId(){
     return id;
   } 
-  public void setId(long id) {
+  public void setPlayerId(long id) {
     this.id = id;
   }
   

@@ -34,11 +34,11 @@ public class Game {
         this.creationDate = Instant.now();
     }
 
-    public long getId(){
+    public long getGameId(){
         return id;
     } 
 
-    public void setId(long id) {
+    public void setGameId(long id) {
         this.id = id;
     }
 
@@ -63,6 +63,7 @@ public class Game {
         this.gamePlayers = gamePlayers;
     }
 
+    //what this does?
     public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayer.setGame(this);
         gamePlayers.add(gamePlayer);
@@ -70,6 +71,8 @@ public class Game {
 
     @JsonIgnore
     public List<Player> getPlayers() {
-        return gamePlayers.stream().map(sub -> sub.getPlayer()).collect(toList());
+        return gamePlayers.stream()
+        .map(GamePlayer::getPlayer)
+        .collect(toList());
     }
 }
