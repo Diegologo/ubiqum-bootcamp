@@ -20,7 +20,8 @@ public class SalvoController {
     public List<Map<String, Object>> getGames() {
         return gameRepository.findAll().stream().map(game -> {
             Map<String, Object> gameMap = new HashMap<>();
-            
+
+            gameMap.put("gameplays", game.getGamePlayers());
             gameMap.put("creationDate", game.getCreationDate());
             gameMap.put("id", game.getId());
 
