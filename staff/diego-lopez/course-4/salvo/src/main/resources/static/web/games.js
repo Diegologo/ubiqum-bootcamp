@@ -1,14 +1,22 @@
-fetch("/api/games")
+fetch("http://localhost:8080/api/games")
 .then(function (response) {
     return response.json();
-  })
-  .then(function (games) {
-var gameList = document.getElementById("games");
+    })
+    .then(json => {
+        console.log(json);
+        buildTable(json);
+    })
+    .catch((error)=>{
+        console.log("fetch ERROR", error);
+});
 
-for (var game in games){
-var listItem = document.createElement("li");
-listItem.innerText=games[game].creationDate;
-
-gameList.append(listItem);
+function buildTable (games) {
+    var gameList = document.getElementById("games");
+    
+    for (var game in games){
+        var listItem = document.createElement("li");
+        listItem.innerText=games[game].creationDate;
+        
+        gameList.append(listItem)
+    }
 }
-  })
