@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.util.Set;
 import java.util.List;
+import java.util.Date;
+
 
 import static java.util.stream.Collectors.toList;
 
@@ -24,14 +26,13 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
-    private Instant creationDate;
-   
+    private Date creationDate;
     @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
     Set<GamePlayer> gamePlayers;
 
     //Constructor
     public Game() {
-        this.creationDate = Instant.now();
+        this.creationDate = Date.from(Instant.now());
     }
 
     public long getGameId(){
@@ -42,16 +43,16 @@ public class Game {
         this.id = id;
     }
 
-    public Game(Instant dateGame){
+    public Game(Date dateGame){
         creationDate = dateGame;
     }
 
     //Getters y Setters
-    public Instant getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Instant creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 

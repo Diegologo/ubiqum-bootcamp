@@ -28,10 +28,8 @@ public class SalvoApplication {
 			Game g1 = new Game();
 			gameRepository.save(g1);
 			Game g2 = new Game();
-			g2.setCreationDate(g2.getCreationDate().plusSeconds(3600));
 			gameRepository.save(g2);
             Game g3 = new Game();
-            g3.setCreationDate(g3.getCreationDate().plusSeconds(7200));
 			gameRepository.save(g3);
 
 			//placeholder gameplayers
