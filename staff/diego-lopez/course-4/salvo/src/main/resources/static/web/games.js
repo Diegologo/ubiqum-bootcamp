@@ -12,12 +12,10 @@ fetch("http://localhost:8080/api/games")
 
 function buildTable (games) {
     var gameList = document.getElementById("games");
-    var d1 = new Date(games[0].creationDate);
-    console.log(d1,'d1')
   
     for (var game in games){
         var listItem = document.createElement("li");
-        listItem.innerText=games[game].creationDate;
+        listItem.innerText=new Date(games[game].creationDate);
         console.log(games[game].creationDate)
         gameList.append(listItem)
     }
