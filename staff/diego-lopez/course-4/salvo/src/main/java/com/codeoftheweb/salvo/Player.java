@@ -14,11 +14,13 @@ public class Player {
   @GenericGenerator(name = "native", strategy = "native")
   private long id;
   private String userName;
+  private String email;
   
   public Player() { }
   
-  public Player(String user) {
+  public Player(String user, String email) {
     this.userName = user;
+    this.email = email;
   }
 
   public long getPlayerId(){
@@ -37,5 +39,13 @@ public class Player {
   }
   public String toString() {
     return userName;
+  }
+
+  public String getEmail(){
+    return email;
+  }
+
+  public void setEmail(String email){
+    this.email = email;
   }
 }

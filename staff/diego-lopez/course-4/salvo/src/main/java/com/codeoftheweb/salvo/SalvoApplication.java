@@ -17,11 +17,11 @@ public class SalvoApplication {
         return args -> {
 
 			//placeholder players
-			Player readyPlayer1 = new Player("Jack Bauer");
+			Player readyPlayer1 = new Player("Jack Bauer", "Jack@email.com");
 			playerRepository.save(readyPlayer1);
-			Player readyPlayer2 = new Player("Chloe O'Brian");
+			Player readyPlayer2 = new Player("Chloe O'Brian", "Chloe@email.com");
 			playerRepository.save(readyPlayer2);
-			Player readyPlayer3 = new Player("Kim Bauer");
+			Player readyPlayer3 = new Player("Kim Bauer", "Kim@email.com");
 			playerRepository.save(readyPlayer3);
 			
 			//placeholder games
