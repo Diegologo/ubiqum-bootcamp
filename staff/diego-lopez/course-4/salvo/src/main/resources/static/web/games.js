@@ -33,12 +33,12 @@ function buildTable (games) {
         listItem.innerText=new Date(games[game].creationDate);
         console.log(games[game].creationDate)
         var subList = document.createElement("ol")
-        // emailArr.push(games[game].gameplays[0].email); <<this can do the same as the .push in the nested for
+        // emailArr.push(games[game].gameplayers[0].email); <<this can do the same as the .push in the nested for
 
-        for(var player in games[game].gameplays){
+        for(var player in games[game].gameplayers){
             var subListItem =document.createElement("li");
-            subListItem.innerText=games[game].gameplays[player].userName;
-            emailArr.push(games[game].gameplays[player].email);
+            subListItem.innerText=games[game].gameplayers[player].userName;
+            emailArr.push(games[game].gameplayers[player].email);
             listItem.append(subList);
             subList.append(subListItem);
             }

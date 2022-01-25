@@ -23,7 +23,7 @@ public class SalvoController {
 
             gameMap.put("creationDate", game.getCreationDate());
             gameMap.put("gameId", game.getGameId());
-            gameMap.put("gameplays", game.getPlayers());
+            gameMap.put("gameplayers", game.getPlayers());
 
             return gameMap;
         }).collect(toList());
@@ -43,5 +43,13 @@ public class SalvoController {
     @RequestMapping("/gameplayers")
     public List<GamePlayer> getGameplayers() {
         return gamePlayerRepository.findAll();
+    }
+
+    @Autowired
+    private ShipRepository shipRepository;
+
+    @RequestMapping("/ships")
+    public List<Ship> getShips() {
+        return shipRepository.findAll();
     }
 }

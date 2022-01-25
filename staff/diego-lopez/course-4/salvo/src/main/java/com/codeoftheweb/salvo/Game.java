@@ -35,6 +35,11 @@ public class Game {
         this.creationDate = Date.from(Instant.now());
     }
 
+    public Game(Date dateGame){
+        creationDate = dateGame;
+    }
+
+    //Getters y Setters
     public long getGameId(){
         return id;
     } 
@@ -43,11 +48,6 @@ public class Game {
         this.id = id;
     }
 
-    public Game(Date dateGame){
-        creationDate = dateGame;
-    }
-
-    //Getters y Setters
     public Date getCreationDate() {
         return creationDate;
     }
@@ -64,11 +64,11 @@ public class Game {
         this.gamePlayers = gamePlayers;
     }
 
-    //what this does?
+    //what does this do?
     public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayer.setGame(this);
         gamePlayers.add(gamePlayer);
-    } 
+    }
 
     @JsonIgnore
     public List<Player> getPlayers() {
