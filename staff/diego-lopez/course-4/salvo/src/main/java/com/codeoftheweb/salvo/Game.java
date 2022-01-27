@@ -44,10 +44,6 @@ public class Game {
         return id;
     } 
 
-    public void setGameId(long id) {
-        this.id = id;
-    }
-
     public Date getCreationDate() {
         return creationDate;
     }

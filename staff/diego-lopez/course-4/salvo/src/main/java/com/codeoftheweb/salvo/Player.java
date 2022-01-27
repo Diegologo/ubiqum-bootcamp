@@ -23,9 +23,6 @@ public class Player {
   public long getPlayerId(){
     return id;
   } 
-  public void setPlayerId(long id) {
-    this.id = id;
-  }
   
   public String getUserName() {
     return userName;

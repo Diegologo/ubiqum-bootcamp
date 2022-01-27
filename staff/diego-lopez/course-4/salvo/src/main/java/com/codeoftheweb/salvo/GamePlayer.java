@@ -3,6 +3,8 @@ package com.codeoftheweb.salvo;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 public class GamePlayer {
@@ -20,9 +22,8 @@ public class GamePlayer {
     @JoinColumn(name="player_id")
     private Player player;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="ship_id")
-    private Ship ship;
+    @OneToMany(mappedBy = "gamePlayer" , fetch = FetchType.EAGER)
+     Set<Ship> ships = new LinkedHashSet<>();
 
 
     //constructor
@@ -41,10 +42,6 @@ public class GamePlayer {
         return id;
     } 
 
-    public void setGamePlayerId(long id) {
-        this.id = id;
-    }
-
     @JsonIgnore
     public Game getGame() {
         return game;
@@ -62,11 +59,18 @@ public class GamePlayer {
         this.player = player;
     }
 
-    public Ship getShip(){
-        return ship;
+    @JsonIgnore
+    public Set<Ship> getShips() {
+        return ships;
     }
 
-    public void setShip(Ship ship){
-        this.ship = ship;
+    public void setShips(Set<Ship> ships) {
+        this.ships = ships;
+
+    }
+
+    public void addShip(Ship ship){
+        ship.setGamePlayer(this);
+        this.ships.add(ship);
     }
 }

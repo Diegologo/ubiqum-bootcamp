@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.CommandLineRunner;
 
+import java.util.Arrays;
+import java.util.List;
+
 @SpringBootApplication
 public class SalvoApplication {
 
@@ -45,11 +48,18 @@ public class SalvoApplication {
 			gamePlayerRepository.save(gp3);
 
 			//placeholder ships
-			Ship ship1P1 = new Ship("friendship", gp1);
+			List<String> location1 = Arrays.asList("H1", "H2");
+			List<String> location2 = Arrays.asList("H1", "H2");
+			List<String> location3 = Arrays.asList("H1", "H2");
+
+			Ship ship1P1 = new Ship("friendship", gp1, location1);
+			gp1.addShip(ship1P1);
 			shipRepository.save(ship1P1);
-			Ship ship2P1 = new Ship("relationship", gp1);
+			Ship ship2P1 = new Ship("relationship", gp1, location2);
+			gp1.addShip(ship2P1);
 			shipRepository.save(ship2P1);
-			Ship ship1P2 = new Ship("shipping", gp2);
+			Ship ship1P2 = new Ship("shipping", gp2, location3);
+			gp1.addShip(ship1P2);
 			shipRepository.save(ship1P2);
         };
     }

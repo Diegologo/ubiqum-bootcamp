@@ -2,7 +2,8 @@ package com.codeoftheweb.salvo;
 
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Ship {
@@ -11,35 +12,36 @@ public class Ship {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
-    private String type;
-    private String location;
+    private String shipType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gamePlayer_id")
     private GamePlayer gamePlayer;
 
-    public Ship(String type, GamePlayer gamePlayer) {
-        this.type = type;
+    @ElementCollection
+    @Column(name="shipLocation")
+    List<String> shipLocation = new ArrayList<>();
+
+    public Ship(){}
+
+    public Ship(String shipType, GamePlayer gamePlayer, List <String> shipLocation) {
+        this.shipType = shipType;
         this.setGamePlayer(gamePlayer);
+        this.shipLocation = shipLocation;
     }
 
     public Long getShipId(){
         return id;
     }
 
-    public void setShipId(Long id){
-        this.id = id;
-    }
-
     public String getType(){
-        return type;
+        return shipType;
     }
 
-    public void setType(String type){
-        this.type = type;
+    public void setType(String shipType){
+        this.shipType = shipType;
     }
 
-    @JsonIgnore
     public GamePlayer getGamePlayer() {
         return gamePlayer;
     }
@@ -48,11 +50,11 @@ public class Ship {
         this.gamePlayer = gamePlayer;
     }
     
-    public String getLocation(){
-        return location;
+    public List<String> getShipLocation() {
+        return shipLocation;
     }
 
-    public void setLocation(String location){
-        this.location = location;
+    public void setShipLocation(List<String> shipLocation) {
+        this.shipLocation = shipLocation;
     }
 }
