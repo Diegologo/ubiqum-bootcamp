@@ -42,7 +42,7 @@ public class Game {
     //Getters y Setters
     public long getGameId(){
         return id;
-    } 
+    }
 
     public Date getCreationDate() {
         return creationDate;

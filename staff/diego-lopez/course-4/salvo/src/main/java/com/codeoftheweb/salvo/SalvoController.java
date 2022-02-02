@@ -9,12 +9,19 @@ import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
 
+
 @RestController
 @RequestMapping("/api")
-public class SalvoController {
+public class SalvoController  {
 
     @Autowired
     private GameRepository gameRepository;
+    @Autowired
+    private PlayerRepository playerRepository;
+    @Autowired
+    private GamePlayerRepository gamePlayerRepository;
+    @Autowired
+    private ShipRepository shipRepository;
 
     @RequestMapping("/games")
     public List<Map<String, Object>> getGames() {
@@ -29,24 +36,15 @@ public class SalvoController {
         }).collect(toList());
     }
 
-    @Autowired
-    private PlayerRepository playerRepository;
-
     @RequestMapping("/players")
     public List<Player> getPlayers() {
         return playerRepository.findAll();
     }
 
-    @Autowired
-    private GamePlayerRepository gamePlayerRepository;
-
     @RequestMapping("/gameplayers")
     public List<GamePlayer> getGameplayers() {
         return gamePlayerRepository.findAll();
     }
-
-    @Autowired
-    private ShipRepository shipRepository;
 
     @RequestMapping("/ships")
     public List<Ship> getShips() {
