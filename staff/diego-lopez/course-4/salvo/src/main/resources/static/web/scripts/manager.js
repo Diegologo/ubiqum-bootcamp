@@ -1,5 +1,7 @@
 $(function() {
 
+  // this is the front of localhost:8080
+  
   // display text in the output area
   function showOutput(text) {
     $("#output").text(text);

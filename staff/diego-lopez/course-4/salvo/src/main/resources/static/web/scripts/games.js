@@ -1,5 +1,7 @@
 let gamesJson;
 
+//this is the front of http://localhost:8080/web/games.html
+
 fetch("http://localhost:8080/api/games")
 .then(function (response) {
     return response.json();
