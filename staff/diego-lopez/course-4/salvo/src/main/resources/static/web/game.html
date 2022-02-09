@@ -1,10 +1,318 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="./style/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
     <meta charset="utf-8">
-    <title>Grid Based System</title>
-  </head>
-  <body>
-    <script type="text/javascript" src="scripts/game.js"></script>
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Ship Locations</title>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row">
+    <div id="game-information" class="col-10 float-left justify-content-start"></div>
+
+    <div id="form-logout"class="col justify-content-end float-right">
+    <form onsubmit="return false">
+        <button id="logout-submit" class="btn btn-danger justify-content-end ml-5" >Log out</button>
+    </form>
+
+</div>
+
+</div>
+<div class="row justify-content-center">
+
+<div id="game-history">
+
+    <table id="table_history" class="table text-center mb-5 mr-3 mb-2">
+        <tr>
+            <th scope="col">Turn</th>
+            <th scope="col">Hits on You</th>
+            <th scope="col">Hits on Opponent</th>
+
+        </tr>
+
+    </table>
+
+    <table id="table_sunk" class="table ml-3 mb-5 justify-content-center text-center">
+        <tr>
+            <th scope="col">Opponent Sunk Ships</th>
+        </tr>
+
+        <tbody id="tbody_sunk">
+        <tr>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+
+</div>
+</div>
+<div class="row text-center justify-content-center">
+
+<div id="tables_currentPlayer" class="justify-content-center">
+
+<div id="board_ships" class="parent justify-content-center text-center">
+<!--     <div id="ships_images">
+
+     <div><span> <img id="carrier" data-size="5" data-position="0" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' draggable="true" src="./images/carrier.png"/></span></div>
+        <div><span> <img id="destroyer" data-size="3" data-position="3" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' src="./images/destroyer.png" draggable="true"/></span></div>
+        <div><span> <img id="patrol_boat" data-size="2" data-position="4" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' src="./images/patrol.png" draggable="true" /></span></div>
+        <div><span> <img id="submarine" data-size="3"data-position="2" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' src="./images/submarine.png" draggable="true" /></span></div>
+        <div><span> <img id="battleship" data-size="4" data-position="1" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' src="./images/battleship.png" draggable="true" /></span></div>
+
+</div> -->
+<div id="divSendShipsButton">
+    <button id="sendShips" class="mb-2 d-flex justify-content-center text-center button_blinking">Confirm your Ships</button>
+</div>
+<table id="table_ships" class="justify-content-center mr-4">
+    <tr class="text-center">
+        <td ></td>
+        <th scope="col">1</th>
+        <th scope="col">2</th>
+        <th scope="col">3</th>
+        <th scope="col">4</th>
+        <th scope="col">5</th>
+        <th scope="col">6</th>
+        <th scope="col">7</th>
+        <th scope="col">8</th>
+    </tr>
+    <tbody class="text-center">
+    <tr class="test text-center">
+        <th scope="row">A</th>
+        <td class="A1" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="A2" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="A3" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="A4" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="A5" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="A6" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="A7" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="A8" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+    </tr>
+    <tr>
+        <th scope="row">B</th>
+        <td class="B1" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="B2" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="B3" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="B4" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="B5" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="B6" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="B7" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="B8" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+    </tr>
+    <tr>
+        <th scope="row">C</th>
+        <td class="C1" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="C2" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="C3" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="C4" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="C5" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="C6" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="C7" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="C8" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+
+    </tr>
+    <tr>
+        <th scope="row">D</th>
+        <td class="D1" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="D2" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="D3" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="D4" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="D5" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="D6" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="D7" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="D8" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+
+    </tr>
+    <tr>
+        <th scope="row">E</th>
+        <td class="E1" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="E2" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="E3" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="E4" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="E5" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="E6" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="E7" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="E8" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+
+    </tr>
+    <tr>
+        <th scope="row">F</th>
+        <td class="F1" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="F2" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="F3" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="F4" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="F5" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="F6" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="F7" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="F8" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+
+    </tr>
+    <tr>
+        <th scope="row">G</th>
+        <td class="G1" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="G2" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="G3" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="G4" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="G5" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="G6" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="G7" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="G8" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+
+    </tr>
+    <tr>
+        <th scope="row">H</th>
+        <td class="H1" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="H2" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="H3" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="H4" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="H5" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="H6" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="H7" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+        <td class="H8" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
+
+    </tr>
+    </tbody>
+
+</table>
+</div>
+
+    <div id="board_salvoes" class='parent text-center justify-content-center'>
+        <div id="salvoes_images" class="text-center">
+
+<!--             <div><span><img id="salvoImg" src="./images/salvo.png"/></span></div> -->
+        </div>
+
+        <div id="divSendSalvoesButton">
+        <button id="sendSalvoes" class="mb-2 d-flex justify-content-center text-center button_blinking">Confirm your Salvoes</button>
+        </div>
+
+        <table id="table_salvoes" class="text-center ml-4">
+    <tr class="text-center">
+        <td></td>
+        <th scope="col">1</th>
+        <th scope="col">2</th>
+        <th scope="col">3</th>
+        <th scope="col">4</th>
+        <th scope="col">5</th>
+        <th scope="col">6</th>
+        <th scope="col">7</th>
+        <th scope="col">8</th>
+    </tr>
+    <tr class="test">
+        <th scope="row">A</th>
+        <td class="A1"></td>
+        <td class="A2"></td>
+        <td class="A3"></td>
+        <td class="A4"></td>
+        <td class="A5"></td>
+        <td class="A6"></td>
+        <td class="A7"></td>
+        <td class="A8"></td>
+    </tr>
+    <tr>
+        <th scope="row">B</th>
+        <td class="B1"></td>
+        <td class="B2"></td>
+        <td class="B3"></td>
+        <td class="B4"></td>
+        <td class="B5"></td>
+        <td class="B6"></td>
+        <td class="B7"></td>
+        <td class="B8"></td>
+    </tr>
+    <tr>
+        <th scope="row">C</th>
+        <td class="C1"></td>
+        <td class="C2"></td>
+        <td class="C3"></td>
+        <td class="C4"></td>
+        <td class="C5"></td>
+        <td class="C6"></td>
+        <td class="C7"></td>
+        <td class="C8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">D</th>
+        <td class="D1"></td>
+        <td class="D2"></td>
+        <td class="D3"></td>
+        <td class="D4"></td>
+        <td class="D5"></td>
+        <td class="D6"></td>
+        <td class="D7"></td>
+        <td class="D8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">E</th>
+        <td class="E1"></td>
+        <td class="E2"></td>
+        <td class="E3"></td>
+        <td class="E4"></td>
+        <td class="E5"></td>
+        <td class="E6"></td>
+        <td class="E7"></td>
+        <td class="E8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">F</th>
+        <td class="F1"></td>
+        <td class="F2"></td>
+        <td class="F3"></td>
+        <td class="F4"></td>
+        <td class="F5"></td>
+        <td class="F6"></td>
+        <td class="F7"></td>
+        <td class="F8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">G</th>
+        <td class="G1"></td>
+        <td class="G2"></td>
+        <td class="G3"></td>
+        <td class="G4"></td>
+        <td class="G5"></td>
+        <td class="G6"></td>
+        <td class="G7"></td>
+        <td class="G8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">H</th>
+        <td class="H1"></td>
+        <td class="H2"></td>
+        <td class="H3"></td>
+        <td class="H4"></td>
+        <td class="H5"></td>
+        <td class="H6"></td>
+        <td class="H7"></td>
+        <td class="H8"></td>
+
+    </tr>
+
+
+</table>
+
+</div>
+    </div>
+</div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="./js/game.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>
 </html>
