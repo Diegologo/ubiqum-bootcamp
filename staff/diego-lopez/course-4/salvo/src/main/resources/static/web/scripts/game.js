@@ -1,5 +1,5 @@
 
-let interval = setInterval(function() { console.log("Fetching"); getData(); }, 30000);
+let interval = setInterval(function() { console.log("Fetching"); getData(); }, 15000);
 
 let globalObject= [
 
@@ -28,9 +28,9 @@ let tableShip_tds = document.querySelectorAll("#table_ships td");
 addChangeOrientation();
 clickOnSalvoCell();
 let salvoArray = [];
-opacityImgSalvo();
+/* opacityImgSalvo();
   var sunkNumHost = [];
-    var sunkNumEnem = [];
+    var sunkNumEnem = []; */
 
 
 
@@ -47,7 +47,7 @@ addSalvoLocationsToBackEnd(parameterFromUrl);
 
    function addShipLocationsToBackEnd(gamePlayerId){
 
-    fetch("/api/games/players/" + gamePlayerId + "/ships"
+    fetch("http://localhost:8080/api/games/players/" + gamePlayerId + "/ships"
 ,{
     method: "POST",
     headers:{
@@ -75,14 +75,15 @@ addSalvoLocationsToBackEnd(parameterFromUrl);
 
 function addSalvoLocationsToBackEnd(gamePlayerId){
 
-    fetch("/api/games/players/" + gamePlayerId + "/salvoes"
-,{  credentials: "include",
+    fetch("http://localhost:8080/api/games/players/" + gamePlayerId + "/salvoes",{  
+    credentials: "include",
     method: "POST",
     headers:{
     'Content-Type': 'application/json'
     },
     body:JSON.stringify(salvoArray)
-    } ).then(res=> res.json()).then(data=> console.log(data))
+    })
+    .then(res=> res.json()).then(data=> console.log(data))
     .then (alert("Salvoes placed with success!")).then(window.location = "/web/game.html?gp=" + gamePlayerId);
 
 
@@ -96,7 +97,6 @@ function addSalvoLocationsToBackEnd(gamePlayerId){
  }
   return body.join("&");
 }
-
 }
 
 let parameterFromUrl= getParameterByName("gp");
@@ -104,31 +104,30 @@ console.log(parameterFromUrl);
 getData ();
 
 function getData () {
-fetch("/api/game_view/"+parameterFromUrl
-
-    ).then(function (response) {
+fetch("http://localhost:8080/api/game_view/1")
+.then(function (response) {
     return response.json();
 
-}).then((dataFromServer) => {
+}).then(dataFromServer => {
     console.log(dataFromServer);
-gameView = dataFromServer;
-gameStatus(gameView);
-gameInfo(gameView);
-printShips(gameView);
+let data = dataFromServer;
+gameStatus(data);
+gameInfo(data);
+printShips(data);
 
-if (gameView.gamePlayers.length > 1) {
+if (data.gamePlayers.length > 1) {
 
-gameHistory(gameView);
-ShipHasSunk_HideImage(gameView);
+gameHistory(data);
+ShipHasSunk_HideImage(data);
 }
 
-if (gameView.salvoes[0].length != 0){
+if (data.salvoes[0].length != 0){
 
-printSalvoes(gameView);
-printOpponentSalvoes(gameView);
+printSalvoes(data);
+printOpponentSalvoes(data);
 
-}
-})
+    }
+  })
 }
 /////////////////////////////////////////// GAME STATUS //////////////////////////////////////////////////
 
@@ -136,7 +135,6 @@ function gameStatus (data){
 let results = data.whoWon;
 console.log(data);
 console.log(results);
-console.log(data.salvoes[0]);
 
 if(data.gameStatus == "currentPlayerPlaceShips"){
   alert("Place your Ships by dragging boat images in the grid and confirm by clicking the button.");
@@ -276,33 +274,6 @@ console.log(data.hitsOnCurrentPlayer[i]);
 
 hitsOnCurrentPlayer = '<td>' +  data.hitsOnCurrentPlayer[i] +'</td>';
 console.log(data.gameHistory[i]);
-
-/*
-for (let j= 0; j < data.gameHistory[i].shipStatus.length; j++){
-gamePlayerId = data.gameHistory[i].gamePlayerId;
-console.log(data.gameHistory[i].gamePlayerId[j]);
-
-if (data.gameHistory[i].shipStatus[j].sunk == true){
-
-if( gamePlayerId == parameterFromUrl){
-
-console.log(parameterFromUrl, data.gameHistory[i].shipStatus[j].type);
-sunkShipCurrentPlayer = '<td>' +  data.gameHistory[i].shipStatus[j].type +'</td>';
-
-} else {
-console.log(data.gameHistory[i].shipStatus[j].type);
-sunkShipOpponent = '<td>' +  data.gameHistory[i].shipStatus[j].type +'</td>';
-}
-
-} else {
-console.log("empty cell");
-sunkShipCurrentPlayer = '<td>' +'</td>';
-sunkShipOpponent = '<td>' +'</td>';
-}
-
-}
-
-*/
 console.log(turnNumber, hitsOnCurrentPlayer,sunkShipCurrentPlayer, hitsOnOpponent, sunkShipOpponent);
 document.getElementById("table_history").innerHTML += '<tr>' + turnNumber + hitsOnCurrentPlayer + hitsOnOpponent +'</tr>' ;
 
@@ -310,24 +281,25 @@ document.getElementById("table_history").innerHTML += '<tr>' + turnNumber + hits
 
 }
 
-function turnNumber (data){
-for (let i=0; i < data.salvoes[0].length; i++){
+/* function turnNumber (data){
+for(let i=0; i < data.salvoes[0].length; i++){
 return i
 }
-}
+} */
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function gameInfo (data){
 
-let playerInfo1 = data.gamePlayers[0].player.user_name;
+let playerInfo1 = data.gamePlayers[0].player.email;
 
 if (data.gamePlayers.length > 1){
 
-let playerInfo2 = data.gamePlayers[1].player.user_name;
+let playerInfo2 = data.gamePlayers[1].player.email;
 
 if(data.gamePlayers[0].gamePlayer_id == getParameterByName('gp')){
+  console.log("test!")
  document.getElementById("game-information").innerHTML = 'Player ' + playerInfo1 + ' (you) vs ' + playerInfo2;
  } else {
  document.getElementById("game-information").innerHTML = 'Player ' + playerInfo2 + ' (you) vs ' + playerInfo1;
@@ -351,7 +323,7 @@ function getParameterByName(name) {
 
 
 
- ///////////////////7777///////////DRAG AND DROP SHIPS ////////////////////////////////////////
+ //////////////////////////////////DRAG AND DROP SHIPS ////////////////////////////////////////
 function onDragOver(event) {
   event.preventDefault();
 }
@@ -592,7 +564,7 @@ logout();
 
  function logout() {
 
-       fetch("/api/logout", {
+       fetch("http://localhost:8080/api/logout", {
          method: "POST"
        })
          .then(function(data) {
@@ -644,12 +616,11 @@ function clickOnSalvoCell () {
 }
 
 
-function opacityImgSalvo(){
+/* function opacityImgSalvo(){
   if (salvoArray.length > 4){
     document.getElementById("salvoImg").classList.add("opacity");
 
   }else{
   document.getElementById("salvoImg").classList.remove("opacity");
   }
-}
-
+} */

@@ -16,7 +16,7 @@ fetch("http://localhost:8080/api/games")
         console.log("fetch ERROR", error);
 });
 
-// trying to use map, but would require a nested map because of the arrays inside the objects inside the json. For loop seems 
+// trying to use map, but would require a nested map because of the arrays inside the objects inside the json. For loop seems easier
 // function mapData(mappedData){
 //     return mappedData
 //         .map(mapping => ({
