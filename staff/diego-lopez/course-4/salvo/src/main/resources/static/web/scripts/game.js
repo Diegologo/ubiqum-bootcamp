@@ -104,7 +104,7 @@ console.log(parameterFromUrl);
 getData ();
 
 function getData () {
-fetch("http://localhost:8080/api/game_view/1")
+fetch("http://localhost:8080/api/game_view/" + parameterFromUrl)
 .then(function (response) {
     return response.json();
 
@@ -298,7 +298,7 @@ if (data.gamePlayers.length > 1){
 
 let playerInfo2 = data.gamePlayers[1].player.email;
 
-if(data.gamePlayers[0].gamePlayer_id == getParameterByName('gp')){
+if(data.gamePlayers[0].gamePlayerId == getParameterByName('gp')){
   console.log("test!")
  document.getElementById("game-information").innerHTML = 'Player ' + playerInfo1 + ' (you) vs ' + playerInfo2;
  } else {
@@ -309,10 +309,8 @@ if(data.gamePlayers[0].gamePlayer_id == getParameterByName('gp')){
  else {
 
   document.getElementById("game-information").innerHTML = 'Player ' + playerInfo1 + ' (you) vs ' + "Waiting for opponent";
-
-
  }
-  }
+}
 
 function getParameterByName(name) {
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
