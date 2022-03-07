@@ -1,52 +1,323 @@
-let gamesJson;
+let data;
+let gamesData;
+let playersArray;
+let submitButton;
 
-//this is the front of http://localhost:8080/web/games.html
+updateJson();
 
-fetch("http://localhost:8080/api/games")
-.then(function (response) {
-    return response.json();
-    })
-    .then(json => {
-        console.log(json);
-        gamesJson = json;
-        //mapData(gamesJson)
-        buildTable(json)
-    })
-    .catch((error)=>{
-        console.log("fetch ERROR", error);
+$(function() {
+    $('.submitbutton').click(function () {
+        submitButton = $(this).attr('name')
+    });
+
 });
 
-// trying to use map, but would require a nested map because of the arrays inside the objects inside the json. For loop seems easier
-// function mapData(mappedData){
-//     return mappedData
-//         .map(mapping => ({
-//             creationDate :typeof mapping.creationDate,
-//             gameId : mapping.gameId,
-//         }))
-// }
+$('#login-form').on('submit', function (event) {
+    event.preventDefault();
 
-function buildTable (games) {
-    var gameList = document.getElementById("games");
-    var emails = document.getElementById("emailList")
-    var emailArr = []
-  
-    for (let game in gamesJson){
-        var listItem = document.createElement("li");
-        listItem.innerText=new Date(games[game].creationDate);
-        console.log(games[game].creationDate)
-        var subList = document.createElement("ol")
-        // emailArr.push(games[game].gameplayers[0].email); <<this can do the same as the .push in the nested for
+    if (submitButton == "login") {
+        $.post("/api/login",
+            { username: $("#username").val(),
+                password: $("#password").val() })
+            .done(function() {
+                console.log("login ok");
+                $('#loginSuccess').show( "slow" ).delay(2000).hide( "slow" );
+                // $("#username").val("");
+                $("#password").val("");
+                updateJson();
 
-        for(var player in games[game].gameplayers){
-            var subListItem =document.createElement("li");
-            subListItem.innerText=games[game].gameplayers[player].userName;
-            emailArr.push(games[game].gameplayers[player].email);
-            listItem.append(subList);
-            subList.append(subListItem);
+            })
+            .fail(function() {
+                console.log("login failed");
+                $('#loginFailed').show( "slow" ).delay(2000).hide( "slow" );
+                $("#username").val("");
+                $("#password").val("");
+                $("#username").focus();
+            })
+            .always(function() {
+
+            });
+
+    } else if (submitButton == "signup") {
+        $.post("/api/players",
+            { username: $("#username").val(),
+                password: $("#password").val() })
+            .done(function(data) {
+                console.log("signup ok");
+                console.log(data);
+                $('#signupSuccess').show( "slow" ).delay(2000).hide( "slow" );
+                $.post("/api/login",
+                    { username: $("#username").val(),
+                        password: $("#password").val() })
+                    .done(function() {
+                        console.log("login ok");
+                        $('#loginSuccess').show( "slow" ).delay(2500).hide( "slow" );
+                        $("#username").val("");
+                        $("#password").val("");
+                        updateJson();
+
+                    })
+                    .fail(function() {
+                        console.log("login failed");
+                        $('#loginFailed').show( "slow" ).delay(2000).hide( "slow" );
+                        $("#username").val("");
+                        $("#password").val("");
+                        $("#username").focus();
+                    })
+                    .always(function() {
+
+                    });
+            })
+            .fail(function(data) {
+                console.log("signup failed");
+                // console.log(data);
+                $("#username").val("");
+                $("#password").val("");
+                $("#username").focus();
+                $('#errorSignup').show( "slow" ).delay(3000).hide( "slow" );
+            })
+            .always(function() {
+
+            });
+
+
+    } else {
+        //no button pressed
+    }
+});
+
+$('#logout-form').on('submit', function (event) {
+        event.preventDefault();
+        $.post("/api/logout")
+            .done(function () {
+                console.log("logout ok");
+                $('#logoutSuccess').show("slow").delay(2000).hide("slow");
+                updateJson();
+            })
+            .fail(function () {
+                console.log("logout fails");
+            })
+            .always(function () {
+
+            });
+    });
+
+$('#createGame').on('submit', function (event) {
+    event.preventDefault();
+    $.post("/api/games")
+        .done(function (data) {
+            console.log(data);
+            console.log("game created");
+            gameViewUrl = "/web/game.html?gp=" + data.gpid;
+            $('#gameCreatedSuccess').show("slow").delay(2000).hide("slow");
+            setTimeout(
+                function()
+                {
+                    location.href = gameViewUrl;
+                }, 3000);
+        })
+        .fail(function (data) {
+            console.log("game creation failed");
+            // $('#errorSignup').text(data.responseJSON.error);
+            $('#loginFailed').show( "slow" ).delay(4000).hide( "slow" );
+
+        })
+        .always(function () {
+
+        });
+});
+
+
+function fetchJson(url) {
+        return fetch(url, {
+            method: 'GET',
+            credentials: 'include'
+        }).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        });
+}
+
+function updateJson() {
+        fetchJson('/api/games').then(function (json) {
+            // do something with the JSON
+
+            data = json;
+            gamesData = data.games;
+            updateView();
+
+        }).catch(function (error) {
+            // do something getting JSON fails
+        });
+}
+
+function updateView() {
+        showGamesTable(gamesData);
+        addScoresToPlayersArray(getPlayers(gamesData));
+        showScoreBoard(playersArray);
+        if (data.player == "Invitado") {
+            $('#currentPlayer').text(data.player);
+            $('#logout-form').hide("slow");
+            $('#login-form').show("slow");
+
+        } else {
+            $('#currentPlayer').text(data.player.name);
+            $('#login-form').hide("slow");
+            $('#logout-form').show("slow");
+
+        }
+}
+
+function showGamesTable(gamesData) {
+        let table = "#gamesList tbody";
+        let gpid;
+        $(table).empty();
+        for (let i = 0; i < gamesData.length; i++) {
+
+            let isLoggedPlayer = false;
+            let joinButtonHtml = null;
+
+            let DateCreated = new Date(gamesData[i].created);
+            DateCreated = DateCreated.getUTCDate() + "/" + (DateCreated.getMonth() + 1 ) +  " - " + DateCreated.getHours() + ":" + DateCreated.getMinutes();
+            let row = $('<tr></tr>').prependTo(table);
+            $('<td class="textCenter">' + gamesData[i].id + '</td>').appendTo(row);
+            $('<td class="textCenter">' + DateCreated + '</td>').appendTo(row);
+
+            for (let j = 0; j < gamesData[i].gamePlayers.length; j++) {
+
+                if (gamesData[i].gamePlayers.length == 2) {
+                    $('<td class="textCenter">' + gamesData[i].gamePlayers[j].player.username + '</td>').appendTo(row);
+                }
+                if (gamesData[i].gamePlayers.length == 1 && (data.player == "Invitado" || data.player.id == gamesData[i].gamePlayers[j].player.id)) {
+                    $('<td class="textCenter">' + gamesData[i].gamePlayers[0].player.username + '</td><td class="yellow500 textCenter">ESPERANDO JUGADOR...</td>').appendTo(row);
+                }
+                if (gamesData[i].gamePlayers.length == 1 && data.player.id != null && data.player.id != gamesData[i].gamePlayers[j].player.id) {
+                    $('<td class="textCenter">' + gamesData[i].gamePlayers[0].player.username + '</td><td class="yellow500 textCenter">ESPERANDO JUGADOR...</td>').appendTo(row);
+                    joinButtonHtml = '<td class="textCenter"><button class="joinGameButton btn btn-info" data-gameid=' + '"' + gamesData[i].id + '"' + '><i class="fas fa-gamepad"></i> UNIRSE A LA PARTIDA</button></td>';
+
+                }
+                if (gamesData[i].gamePlayers[j].player.id == data.player.id) {
+                    gpid = gamesData[i].gamePlayers[j].gpid;
+                    isLoggedPlayer = true;
+                }
             }
 
-        gameList.append(listItem)
+            if (isLoggedPlayer === true) {
+                let gameUrl = "/web/game.html?gp=" + gpid;
+                $('<td class="textCenter"><a href=' + '"' + gameUrl + '"' + 'class="btn btn-light" role="button"><i class="fas fa-eye"></i> VISUALIZAR PARTIDA</a></td>').appendTo(row);
+            } else if (joinButtonHtml !== null){
+                $(joinButtonHtml).appendTo(row);
+            } else {
+                $('<td class="textCenter">-</td>').appendTo(row);
+        }
+
+
+        }
+    $('.joinGameButton').click(function (e) {
+        e.preventDefault();
+
+        let joinGameUrl = "/api/game/" + $(this).data('gameid') + "/players";
+        $.post(joinGameUrl)
+            .done(function (data) {
+                console.log(data);
+                console.log("game joined");
+                gameViewUrl = "/web/game.html?gp=" + data.gpid;
+                $('#gameJoinedSuccess').show("slow").delay(2000).hide("slow");
+                setTimeout(
+                   function()
+                  {
+                       location.href = gameViewUrl;
+                   }, 3000);
+            })
+            .fail(function (data) {
+                console.log("game join failed");
+                $('#errorSignup').text(data.responseJSON.error);
+                $('#errorSignup').show("slow").delay(4000).hide("slow");
+
+            })
+            .always(function () {
+
+            });
+    });
+}
+
+function getPlayers(gamesData) {
+
+        playersArray = [];
+        let playersIds = [];
+
+        for (let i = 0; i < gamesData.length; i++) {
+
+            for (let j = 0; j < gamesData[i].gamePlayers.length; j++) {
+
+                if (!playersIds.includes(gamesData[i].gamePlayers[j].player.id)) {
+                    playersIds.push(gamesData[i].gamePlayers[j].player.id);
+                    let playerScoreData = {
+                        "id": gamesData[i].gamePlayers[j].player.id,
+                        "username": gamesData[i].gamePlayers[j].player.username,
+                        "scores": [],
+                        "total": 0.0
+                    };
+                    playersArray.push(playerScoreData);
+                }
+            }
+        }
+        return playersArray;
+}
+
+function addScoresToPlayersArray(playersArray) {
+
+        for (let i = 0; i < gamesData.length; i++) {
+
+            for (let j = 0; j < gamesData[i].scores.length; j++) {
+
+                let scorePlayerId = gamesData[i].scores[j].playerID;
+
+                for (let k = 0; k < playersArray.length; k++) {
+
+                    if (playersArray[k].id == scorePlayerId) {
+                        playersArray[k].scores.push(gamesData[i].scores[j].score);
+                        playersArray[k].total += gamesData[i].scores[j].score;
+                    }
+                }
+            }
+        }
+}
+
+function showScoreBoard(playersArray) {
+
+    playersArray.sort(function (a, b) {
+        return b.total - a.total;
+    });
+
+    let table = "#scoreBoard tbody";
+    $(table).empty();
+
+    for (let m = 0; m < playersArray.length; m++) {
+        let countWon = 0;
+        let countLost = 0;
+        let countTied = 0;
+
+        if (playersArray[m].scores.length > 0) {
+
+            for (let n = 0; n < playersArray[m].scores.length; n++) {
+                if (playersArray[m].scores[n] == 0.0) {
+                    countLost++;
+                } else if (playersArray[m].scores[n] == 0.5) {
+                    countTied++;
+                } else if (playersArray[m].scores[n] == 1.0) {
+                    countWon++;
+                }
+            }
+
+            let row = $('<tr></tr>').appendTo(table);
+            $("<td class='textCenter'>" + playersArray[m].username + '</td>').appendTo(row);
+            $("<td class='textCenter'>" + playersArray[m].total.toFixed(1) + '</td>').appendTo(row);
+            $("<td class='textCenter'>" + countWon + '</td>').appendTo(row);
+            $("<td class='textCenter'>" + countLost + '</td>').appendTo(row);
+            $("<td class='textCenter'>" + countTied + '</td>').appendTo(row);
+        }
     }
-    emailArr = emailArr.join(', ');
-    emails.append(emailArr);
 }
