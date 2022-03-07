@@ -1,75 +1,78 @@
 package com.codeoftheweb.salvo;
 
-import javax.persistence.Entity;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.Set;
-import java.util.List;
-import java.util.Date;
+import java.util.*;
 
 
 import static java.util.stream.Collectors.toList;
 
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-
 public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private long id;
-    private Date creationDate;
-    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
-    Set<GamePlayer> gamePlayers;
+    private Long id;
+    private Date created;
 
-    //Constructor
-    public Game() {
-        this.creationDate = Date.from(Instant.now());
-    }
+    @OneToMany(mappedBy="game")
+    private //el mappedBy coincide con atributo Game game de GamePlayer
+            List<GamePlayer> gamePlayers;
+
+    @OneToMany(mappedBy = "game")
+    private List<Score> scores;
+
+    public Game(){}
 
     public Game(Date dateGame){
-        creationDate = dateGame;
+        this.created = dateGame;
     }
 
-    //Getters y Setters
-    public long getGameId(){
+    public Date getCreated() {
+        return created;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Set<GamePlayer> getGamePlayers() {
-        return gamePlayers;
-    }
-
-    public void setGamePlayers(Set<GamePlayer> gamePlayers) {
-        this.gamePlayers = gamePlayers;
-    }
-
-    //what does this do?
     public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayer.setGame(this);
-        gamePlayers.add(gamePlayer);
+        getGamePlayers().add(gamePlayer);
+    }
+
+    public void addScore(Score score) {
+        score.setGame(this);
+        getScores().add(score);
     }
 
     @JsonIgnore
     public List<Player> getPlayers() {
-        return gamePlayers.stream()
-        .map(GamePlayer::getPlayer)
-        .collect(toList());
+        return getGamePlayers().stream().map(sub -> sub.getPlayer()).collect(toList());
+    }
+
+    public List<GamePlayer> getGamePlayers() {
+        return gamePlayers;
+    }
+
+    public void setGamePlayers(List<GamePlayer> gamePlayers) {
+        this.gamePlayers = gamePlayers;
+    }
+
+    @JsonIgnore
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
     }
 }
